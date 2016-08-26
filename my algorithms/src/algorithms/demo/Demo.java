@@ -21,7 +21,7 @@ public class Demo {
 	
 	/**
 	 * Runs the demo.
-	 * yy
+	 * 
 	 *
 	 * @param floors the floors
 	 * @param height the height
