@@ -43,6 +43,10 @@ public class Maze3d {
 		this.floors = floors;
 	}
 	
+	public Maze3d(byte[] byteArray) {
+		//TODO Finish constructor
+	}
+	
 	/**
 	 * Sets the start position.
 	 *
@@ -255,6 +259,10 @@ public Position getStartPosition() {
 				for(int j=0;j<height; j++)
 					array3d[i][j][width-1] = random.nextInt(2);  
 		}
+	}
+	
+	public byte[] toByteArray() {
+		return null;
 	}
 	
 }
