@@ -262,6 +262,7 @@ public Position getStartPosition() {
 	}
 	
 	public byte[] toByteArray() {
+		byte[] byteArray = new byte[];
 		return null;
 	}
 	
