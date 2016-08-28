@@ -9,7 +9,7 @@ public class Run2 {
 
 	/**
 	 * The main method.
-	 * 44
+	 * test!
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
