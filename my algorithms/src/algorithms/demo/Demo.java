@@ -49,18 +49,20 @@ public class Demo {
 			numberOfFloors++;
 		}
 		
+		System.out.println("\n");
+		System.out.println("Start Position: " + maze.maze3d.getStartPosition());
+		System.out.println("Goal Position: " + maze.maze3d.getGoalPosition());
 		System.out.println();
-		System.out.println(maze.maze3d.getStartPosition());
-		System.out.println(maze.maze3d.getGoalPosition());
 		
-		@SuppressWarnings("unused")
 		Solution<Position> BFSsolution = BFSSearcher.search(maze);
-	    @SuppressWarnings("unused")
 		Solution<Position> DFSsolution = DFSSearcher.search(maze);
 	    
-		System.out.println(BFSsolution);
-		System.out.println(DFSsolution);
+		System.out.println("----- Paths -----");
+		System.out.println("BFS Path: " +BFSsolution);
+		System.out.println("DFS Path: " +DFSsolution);
+		System.out.println();
 		
+		System.out.println("----- Step Counter -----");
 		System.out.println("BFS Nodes: " + BFSSearcher.getNumberOfNodesEvaluated());	
 		System.out.println("BFS Solution: " + BFSsolution.pathSize());	
 		System.out.println("DFS Nodes: " + DFSSearcher.getNumberOfNodesEvaluated());	

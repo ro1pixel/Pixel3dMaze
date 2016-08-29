@@ -54,7 +54,6 @@ public class Solution<T> {
 		StringBuilder sb = new StringBuilder();
 		for (State<T> s : path) {
 			sb.append(s.toString()).append(" ");
-			sb.append("\n");
 		}
 		return sb.toString();
 	}

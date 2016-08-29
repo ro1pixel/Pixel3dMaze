@@ -122,7 +122,7 @@ public class State<T> implements Comparable<State<T>> {
 	 */
 	@Override
 	public String toString() {
-		return "[cost=" + cost+", " +" value=" + value + "]";
+		return value.toString();
 	}
 
 	/* (non-Javadoc)
