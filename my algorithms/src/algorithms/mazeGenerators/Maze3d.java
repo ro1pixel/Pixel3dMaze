@@ -5,6 +5,7 @@ import java.util.Random;
 /**
  * The Class Maze3d.
  * Defines a 3D maze.
+ * a test for change
  */
 public class Maze3d {
 	
