@@ -250,15 +250,15 @@ public Position getStartPosition() {
 		int width=maze3d.getWidth();
 		
 		if(height % 2 == 0) {
-			for(int i=0;i<floors;i++)
-				for(int j=0;j<width; j++)
-					array3d[i][height-1][j] = random.nextInt(2);  
+			for(int i=1;i<floors-1;i++)
+				for(int j=1;j<width-1; j++)
+					array3d[i][height-2][j] = random.nextInt(2);  
 		}
 		
 		if(width % 2 == 0) {
-			for(int i=0;i<floors;i++)
-				for(int j=0;j<height; j++)
-					array3d[i][j][width-1] = random.nextInt(2);  
+			for(int i=1;i<floors-1;i++)
+				for(int j=1;j<height-1; j++)
+					array3d[i][j][width-2] = random.nextInt(2);  
 		}
 	}
 	

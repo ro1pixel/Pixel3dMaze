@@ -2,8 +2,21 @@ package algorithms.search;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.PriorityQueue;
-
+/*
+ * Answers:
+ * 1. BFS:
+ * 		- Finds the SHORTEST path available!
+ * 		- Will never get stuck in a dead end.
+ * 
+ *    DFS:
+ * 		- Better runtime.
+ * 		- Memory requierment is better.
+ * 
+ * 2. I chose to write BFS the way it is
+ * 		because it isolates the problem from the solution.
+ * 		It's a generic solution.
+ * 
+ * */
 /**
  * The BFS search algorithm class.
  * Solving a Searchable using Best-Depth Search.

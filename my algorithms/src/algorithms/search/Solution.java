@@ -1,8 +1,6 @@
 package algorithms.search;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * The Class Solution.

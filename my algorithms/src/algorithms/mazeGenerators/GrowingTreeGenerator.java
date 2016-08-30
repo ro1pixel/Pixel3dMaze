@@ -32,21 +32,21 @@ public class GrowingTreeGenerator extends GeneralMaze3dGenerator {
 		initializeMaze(maze3d);
 		
 		//choose random Position and set to 0
-//		int zAxis = random.nextInt((floors/2))+1;
-//		int xAxis = random.nextInt((width/2)-3)*2+1;
-//		int yAxis = random.nextInt((height/2)-3)*2+1;
+		int zAxis = random.nextInt((floors/2))+1;
+		int xAxis = random.nextInt((width/2)-3)*2+1;
+		int yAxis = random.nextInt((height/2)-3)*2+1;
 		
-		//Choose odd zAxis
-		int zAxis = random.nextInt(height-2)+1;
-		//Choose odd xAxis
-		int xAxis = random.nextInt(width-1);
-		while (xAxis % 2 == 0)
-			xAxis = random.nextInt(width-1);
-		//Choose odd yAxis
-		int yAxis = random.nextInt(height-1);
-		while (yAxis % 2 == 0)
-			yAxis = random.nextInt(height-1);
-		//Set start to 0
+//		//Choose odd zAxis
+//		int zAxis = random.nextInt(height-2)+1;
+//		//Choose odd xAxis
+//		int xAxis = random.nextInt(width-1);
+//		while (xAxis % 2 == 0)
+//			xAxis = random.nextInt(width-1);
+//		//Choose odd yAxis
+//		int yAxis = random.nextInt(height-1);
+//		while (yAxis % 2 == 0)
+//			yAxis = random.nextInt(height-1);
+//		//Set start to 0
 		array3d[zAxis][yAxis][xAxis] = 0;
 		
 		//set start position to the random Position
@@ -142,6 +142,8 @@ public class GrowingTreeGenerator extends GeneralMaze3dGenerator {
         if(maze3d.getGoalPosition().getZ() == floors-2) {
         	array3d[floors-1][maze3d.getGoalPosition().getY()][maze3d.getGoalPosition().getX()] = 0;
         }
+        
+        maze3d.RandomizeEvenRows(maze3d);
         
         //for debug only
       //  array3d[maze3d.getStartPosition().getZ()][maze3d.getStartPosition().getY()][maze3d.getStartPosition().getX()] = 2;

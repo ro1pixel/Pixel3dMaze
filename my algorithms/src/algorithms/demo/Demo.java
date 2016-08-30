@@ -1,17 +1,12 @@
 package algorithms.demo;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.LastPositionChooser;
-import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Maze3dGenerator;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Solution;
-import algorithms.search.State;
 
 /**
  * The Class Demo.
