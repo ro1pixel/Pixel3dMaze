@@ -143,7 +143,8 @@ public class GrowingTreeGenerator extends GeneralMaze3dGenerator {
         	array3d[floors-1][maze3d.getGoalPosition().getY()][maze3d.getGoalPosition().getX()] = 0;
         }
         
-        maze3d.RandomizeEvenRows(maze3d);
+       // maze3d.RandomizeEvenRows(maze3d);
+        maze3d.setRandomOnEven();
         
         //for debug only
       //  array3d[maze3d.getStartPosition().getZ()][maze3d.getStartPosition().getY()][maze3d.getStartPosition().getX()] = 2;

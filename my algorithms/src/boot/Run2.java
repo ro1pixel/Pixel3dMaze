@@ -15,7 +15,7 @@ public class Run2 {
 	public static void main(String[] args) {
 		Demo demo = new Demo();
 		
-		demo.Run(5, 15, 15);
+		demo.Run(5, 16, 16);
 
 	}
 

@@ -244,6 +244,7 @@ public Position getStartPosition() {
 	 * @param maze3d the maze3d
 	 */
 	public void RandomizeEvenRows(Maze3d maze3d) {
+		String[] moves = new String[6];
 		Random random = new Random();
 		int[][][] array3d = maze3d.getArray3d();
 		int height=maze3d.getHeight();
@@ -251,14 +252,47 @@ public Position getStartPosition() {
 		
 		if(height % 2 == 0) {
 			for(int i=1;i<floors-1;i++)
-				for(int j=1;j<width-1; j++)
-					array3d[i][height-2][j] = random.nextInt(2);  
+				for(int j=1;j<width-1; j++) {
+//					moves = getPossibleMoves(new Position(i,height-2,j));
+//					if(moves.length < 6)
+						array3d[i][height-2][j] = random.nextInt(2);
+				}
 		}
 		
 		if(width % 2 == 0) {
 			for(int i=1;i<floors-1;i++)
 				for(int j=1;j<height-1; j++)
 					array3d[i][j][width-2] = random.nextInt(2);  
+		}
+	}
+	
+	public void setRandomOnEven(){
+		String[] moves = new String[6];
+		if(height % 2 == 0) {
+			for (int i = 1; i < floors-1; i++) {
+				for (int j = 1; j < width-1; j++) {
+					moves = getPossibleMoves(new Position(i,height-2,j));
+					int l=0;
+					while(moves[l]!=null) {
+						l++;
+					}
+					if(l < 2)
+						array3d[i][height-2][j] = 0;
+				}
+			}
+		}
+		if(width % 2 == 0) {
+			for (int i = 1; i < floors-1; i++) {
+				for (int j = 1; j < height-1; j++) {
+					moves = getPossibleMoves(new Position(i,j,width-2));
+					int l=0;
+					while(moves[l]!=null) {
+						l++;
+					}
+					if(l < 2)
+						array3d[i][j][width-2] = 0;
+				}
+			}
 		}
 	}
 	
