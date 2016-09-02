@@ -242,31 +242,8 @@ public Position getStartPosition() {
 	 * For test only, not in use.
 	 *
 	 * @param maze3d the maze3d
-	 */
-	public void RandomizeEvenRows(Maze3d maze3d) {
-		String[] moves = new String[6];
-		Random random = new Random();
-		int[][][] array3d = maze3d.getArray3d();
-		int height=maze3d.getHeight();
-		int width=maze3d.getWidth();
-		
-		if(height % 2 == 0) {
-			for(int i=1;i<floors-1;i++)
-				for(int j=1;j<width-1; j++) {
-//					moves = getPossibleMoves(new Position(i,height-2,j));
-//					if(moves.length < 6)
-						array3d[i][height-2][j] = random.nextInt(2);
-				}
-		}
-		
-		if(width % 2 == 0) {
-			for(int i=1;i<floors-1;i++)
-				for(int j=1;j<height-1; j++)
-					array3d[i][j][width-2] = random.nextInt(2);  
-		}
-	}
-	
-	public void setRandomOnEven(){
+	 */	
+	public void RandomizeEvenRows(){
 		String[] moves = new String[6];
 		if(height % 2 == 0) {
 			for (int i = 1; i < floors-1; i++) {
