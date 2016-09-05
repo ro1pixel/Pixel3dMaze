@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -273,9 +274,11 @@ public Position getStartPosition() {
 		}
 	}
 	
-//	public byte[] toByteArray() {
-//		byte[] byteArray = new byte[];
-//		return null;
-//	}
+	public byte[] toByteArray() {
+		ArrayList<Byte> byteArray = new ArrayList<>();
+		
+		
+		return null;
+	}
 	
 }
