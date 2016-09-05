@@ -277,7 +277,7 @@ public Position getStartPosition() {
 	public byte[] toByteArray() {
 		ArrayList<Byte> byteArray = new ArrayList<>();
 		
-		//add maze size
+		//add maze size1
 		byteArray.add((byte)floors);
 		byteArray.add((byte)height);
 		byteArray.add((byte)width);
