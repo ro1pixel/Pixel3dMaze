@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
