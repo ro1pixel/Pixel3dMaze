@@ -277,8 +277,38 @@ public Position getStartPosition() {
 	public byte[] toByteArray() {
 		ArrayList<Byte> byteArray = new ArrayList<>();
 		
+		//add maze size
+		byteArray.add((byte)floors);
+		byteArray.add((byte)height);
+		byteArray.add((byte)width);
 		
-		return null;
+		//add startPosition
+		byteArray.add((byte)startPosition.getZ());
+		byteArray.add((byte)startPosition.getY());
+		byteArray.add((byte)startPosition.getX());
+		
+		//add goalPosition
+		byteArray.add((byte)goalPosition.getZ());
+		byteArray.add((byte)goalPosition.getY());
+		byteArray.add((byte)goalPosition.getX());
+		
+		for(int[][] i : array3d) {
+			for(int[] j : i) {
+				for(int k : j) {
+					byteArray.add((byte)k);
+				}
+			}
+		}
+		
+		byte[] finalArray = new byte[byteArray.size()];
+		for(int i=0;i<byteArray.size();i++) {
+			finalArray[i] = byteArray.get(i);
+		}
+		
+		for(byte b : finalArray)
+			System.out.println(b & 0xff);
+		
+		return finalArray;
 	}
 	
 }
