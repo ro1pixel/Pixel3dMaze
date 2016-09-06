@@ -46,7 +46,25 @@ public class Maze3d {
 	}
 	
 	public Maze3d(byte[] byteArray) {
-		//TODO Finish constructor
+		floors = byteArray[0];
+		height = byteArray[1];
+		width = byteArray[2];
+		
+		array3d = new int[floors][height][width];
+		startPosition = new Position(byteArray[3], byteArray[4], byteArray[5]);
+		goalPosition = new Position(byteArray[6], byteArray[7], byteArray[8]);
+		
+		int pos = 9;
+		
+		for(int i=0;i<floors;i++) {
+			for(int j=0;j<height;j++) {
+				for(int k=0;k<width;k++) {
+					array3d[i][j][k]=byteArray[pos++];
+				}
+			}
+		}
+		
+		
 	}
 	
 	/**
@@ -305,10 +323,21 @@ public Position getStartPosition() {
 			finalArray[i] = byteArray.get(i);
 		}
 		
-		for(byte b : finalArray)
-			System.out.println(b & 0xff);
+//		for(byte b : finalArray)
+//			System.out.println(b & 0xff);
 		
 		return finalArray;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Maze3d object = (Maze3d) obj;
+		
+		if(object.getArray3d() == array3d)
+			return true;
+		return false;
+	}
+	
+	
 	
 }
