@@ -80,6 +80,13 @@ public class MyCompressorOutputStream extends OutputStream {
 			}
 		}
 		
+		if(trigger==1) {
+			out.write(String.valueOf(count).getBytes());
+			out.write(psik.getBytes());
+			out.write(String.valueOf(1).getBytes());
+			out.write(psik.getBytes());
+		}
+		
 	}
 
 }
