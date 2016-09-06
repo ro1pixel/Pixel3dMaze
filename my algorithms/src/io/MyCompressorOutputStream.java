@@ -31,7 +31,7 @@ public class MyCompressorOutputStream extends OutputStream {
 				
 		int length = b.length;
 		int trigger = 1;
-		int count = 1;
+		int count = 0;
 		
 		while(i<length) {
 			if(b[i++] == trigger)

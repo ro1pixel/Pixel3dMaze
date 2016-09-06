@@ -32,20 +32,20 @@ public class Exe3Run {
 		// generate another 3d maze
 		Maze3d maze=mg.generate(3,30,30);	
 	
-	//print maze
-	int[][][] array2 = maze.getArray3d();
-	int numberOfFloors = 0;
-	for(int[][] arr3 : array2) {
-		System.out.println("\nFloor:" + numberOfFloors);
-		for(int[] arr2 : arr3) {
-			System.out.println();
-			for(int val:arr2) {
-				System.out.print(val+ " ");
-				
-			}
-		}
-		numberOfFloors++;
-	}
+//	//print maze
+//	int[][][] array2 = maze.getArray3d();
+//	int numberOfFloors = 0;
+//	for(int[][] arr3 : array2) {
+//		System.out.println("\nFloor:" + numberOfFloors);
+//		for(int[] arr2 : arr3) {
+//			System.out.println();
+//			for(int val:arr2) {
+//				System.out.print(val+ " ");
+//				
+//			}
+//		}
+//		numberOfFloors++;
+//	}
 	
 	try {
 		OutputStream out=new MyCompressorOutputStream(
@@ -76,8 +76,24 @@ public class Exe3Run {
 		byte b[]=new byte[maze.toByteArray().length];
 		try {
 			in.read(b);
-			//Maze3d loaded=new Maze3d(b);
-			//System.out.println(loaded.equals(maze));
+			Maze3d loaded=new Maze3d(b);
+			System.out.println(loaded.equals(maze));
+			
+			//print maze
+			int[][][] array2 = loaded.getArray3d();
+			int numberOfFloors = 0;
+			for(int[][] arr3 : array2) {
+				System.out.println("\nFloor:" + numberOfFloors);
+				for(int[] arr2 : arr3) {
+					System.out.println();
+					for(int val:arr2) {
+						System.out.print(val+ " ");
+						
+					}
+				}
+				numberOfFloors++;
+			}	
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,10 +110,6 @@ public class Exe3Run {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
-
-	
-	
 	
 }
 		

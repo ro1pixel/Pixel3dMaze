@@ -20,7 +20,29 @@ public class MyDecompressorInputStream extends InputStream {
 	}
 	
 	public int read(byte[] array) throws IOException {
-		int i=0;
+		
+		Scanner scanner = new Scanner(in);
+		Scanner input = scanner.useDelimiter(",");
+		
+		int counter=0;
+		int j = 9;
+		byte wallOrPath = 0;
+		
+		for(int i=0;i<9;i++) {
+			array[i]=Byte.valueOf(input.next());
+		}
+		
+		while(input.hasNext()) {
+			counter = Integer.valueOf(input.next());
+			wallOrPath = Byte.valueOf(input.next());
+			
+			while(counter!=0) {
+				array[j++]=wallOrPath;
+				counter--;
+			}
+		}
+		
+/*		int i=0;
 		@SuppressWarnings("resource")
 		String content = new Scanner(new File("1.maz")).useDelimiter("\\Z").next();
 		String[] split = content.split(",");
@@ -37,7 +59,7 @@ public class MyDecompressorInputStream extends InputStream {
 				array[i++] = b;
 			}
 		}
-		
+		*/
 		return array.length;
 	}
 
