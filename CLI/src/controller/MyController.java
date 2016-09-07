@@ -1,5 +1,10 @@
 package controller;
 
-public class MyController implements Controller {
+import javax.swing.text.View;
 
+import model.Model;
+
+public class MyController implements Controller {
+	View ui;
+	Model model;
 }
