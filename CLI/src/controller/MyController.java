@@ -1,15 +1,24 @@
 package controller;
 
-import javax.swing.text.View;
-
 import model.Model;
+import view.View;
 
 public class MyController implements Controller {
-	View ui;
-	Model model;
+	
+	private View view;
+	private Model model;
+	private CommandsManager commandsManager;
+	
+	public MyController(View view, Model model) {
+		super();
+		this.view = view;
+		this.model = model;
+		
+		commandsManager = new CommandsManager(model,view);
+	}
+
 	@Override
 	public void NotifyMazeIsReady(String name) {
-		// TODO Auto-generated method stub
-		
+		view.notifyMazeIsReady(name);		
 	}
 }
