@@ -18,7 +18,12 @@ public class MyController implements Controller {
 	}
 
 	@Override
-	public void NotifyMazeIsReady(String name) {
+	public void notifyMazeIsReady(String name) {
 		view.notifyMazeIsReady(name);		
+	}
+
+	@Override
+	public void notifySolutionIsReady(String name) {
+		view.notifySolutionIsReady(name);
 	}
 }

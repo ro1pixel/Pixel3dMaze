@@ -1,8 +1,12 @@
 package view;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
+import algorithms.search.State;
 import controller.Command;
 import controller.Controller;
 
@@ -60,6 +64,18 @@ public class MyView implements View {
 		}
 		
 		
+	}
+
+	@Override
+	public void displaySolution(Solution<Position> solution) {
+		System.out.println("----- Paths -----");
+		System.out.println("BFS Path: " + solution);
+		System.out.println();
+	}
+
+	@Override
+	public void notifySolutionIsReady(String name) {
+		System.out.println("Solution for maze " + name + " is READY!");		
 	}
 
 }

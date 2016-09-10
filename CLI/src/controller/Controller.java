@@ -1,5 +1,6 @@
 package controller;
 
 public interface Controller {
-	void NotifyMazeIsReady(String name);
+	void notifyMazeIsReady(String name);
+	void notifySolutionIsReady(String name);
 }

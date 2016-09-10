@@ -70,7 +70,7 @@ public class CommandsManager {
 			int z = Integer.parseInt(args[1]);
 			int y = Integer.parseInt(args[2]);
 			int x = Integer.parseInt(args[3]);
-			view.displayCrossSection(model.getMaze(args[0]),z,y,x);
+			view.displayCrossSection(model.getMaze(name),z,y,x);
 		}
 		
 	}
@@ -90,7 +90,9 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			//TODO: Fill the method
+			String name = args[0];
+			String file_name = args[1];
+			model.loadMaze(name, file_name);
 		}
 		
 	}
@@ -99,7 +101,9 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			//TODO: Fill the method
+			String name = args[0];
+			String algorithm = args[1];
+			model.solveMaze(name, algorithm);
 		}
 		
 	}
@@ -108,7 +112,8 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			//TODO: Fill the method
+			String name = args[0];
+			view.displaySolution(model.getSolution(name));
 		}
 		
 	}

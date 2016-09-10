@@ -30,6 +30,11 @@ public class Maze3dSearchableAdapter implements Searchable<Position> {
 		maze3d = new Maze3d(floors, height, width);
 		currentPosition = getStartState();
 	}
+	
+	public Maze3dSearchableAdapter(Maze3d maze3d) {
+		this.maze3d = maze3d;
+		currentPosition = getStartState();
+	}	
 
 	/* (non-Javadoc)
 	 * @see algorithms.search.Searchable#getStartState()
