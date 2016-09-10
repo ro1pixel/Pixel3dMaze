@@ -49,5 +49,14 @@ public class CLI{
 		out.println(str);
 		out.flush();
 	}
+
+	public HashMap<String, Command> getCommands() {
+		return commands;
+	}
+
+	public void setCommands(HashMap<String, Command> commands) {
+		this.commands = commands;
+	}
+	
 	
 }

@@ -24,10 +24,10 @@ public class Run {
 		try {
 			cli = new CLI(new BufferedReader(new FileReader("1.maz")),
 					new PrintWriter(new FileOutputStream("1.maz")), stg);
-			MyView ui = new MyView(cli);
+			MyView view = new MyView(cli);
 			MyModel model = new MyModel();
-			MyController controller = new MyController();
-			ui.start();
+			MyController controller = new MyController(view,model);
+			view.start();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
