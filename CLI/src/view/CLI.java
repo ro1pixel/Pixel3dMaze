@@ -3,7 +3,10 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 import controller.Command;
 
@@ -27,10 +30,12 @@ public class CLI{
 				String input;
 				try {
 					do {
-						printToScreen("What would you like to do?");
+						printToScreen("Please enter your command and arguments comma seperated: ");
 						input = in.readLine();
 						if(commands.containsKey(input)) {
-							commands.get(input).doCommand();
+							List<String> args = Arrays.asList(input.split(","));
+							Command command = commands.get(args.get(0));
+							command.doCommand();
 						}
 						else {
 							printToScreen("Please enter a valid command!");
