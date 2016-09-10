@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
@@ -11,4 +13,5 @@ public interface Model {
 	void loadMaze(String name, String file_name);
 	void solveMaze(String name, String algorithm);
 	Solution<Position> getSolution(String name);
+	File[] listFiles(String path);
 }

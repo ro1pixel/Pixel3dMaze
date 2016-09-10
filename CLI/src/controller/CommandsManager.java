@@ -57,7 +57,8 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			//TODO: Fill the method
+			String path = args[0];
+			view.displayFiles(model.listFiles(path));
 		}
 		
 	}

@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -17,4 +18,5 @@ public interface View {
 	void setCommands(HashMap<String, Command> commands); 
 	void displaySolution(Solution<Position> solution);
 	void notifySolutionIsReady(String name);
+	void displayFiles(File[] files);
 }

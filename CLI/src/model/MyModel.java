@@ -1,13 +1,16 @@
 package model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import algorithms.demo.Maze3dSearchableAdapter;
 import algorithms.mazeGenerators.Maze3d;
@@ -24,11 +27,13 @@ public class MyModel implements Model {
 	
 	HashMap<String, Maze3d> savedMaze = new HashMap<>();
 	HashMap<String, Solution<Position>> solutions = new HashMap<>();
+	List<Thread> threads = new ArrayList<>();
 	
 	Controller controller;
 
-	public MyModel(HashMap<String, Maze3d> savedMaze, Controller controller) {
-		this.savedMaze = savedMaze;
+	public MyModel() {}
+	
+	public MyModel(Controller controller) {
 		this.controller = controller;
 	}
 
@@ -86,7 +91,6 @@ public class MyModel implements Model {
 				in.read(b);
 				Maze3d loaded=new Maze3d(b);				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			finally {
@@ -107,7 +111,7 @@ public class MyModel implements Model {
 	@Override
 	public void solveMaze(String name, String algorithm) {
 		
-		new Thread(new Runnable() {
+		Thread thread = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -127,12 +131,20 @@ public class MyModel implements Model {
 				solutions.put(name, solution);
 				controller.notifySolutionIsReady(name);
 			}
-		}).start();
+		});
+		
+		thread.start();
+		threads.add(thread);
 		
 	}
 	
 	public Solution<Position> getSolution(String name) {
 		return solutions.get(name);
+	}
+
+	@Override
+	public File[] listFiles(String path) {
+		return (new File(path).listFiles());
 	}
 	
 }

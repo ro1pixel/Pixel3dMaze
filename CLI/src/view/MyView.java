@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -23,6 +24,10 @@ public class MyView implements View {
 	@Override
 	public void start() {
 		cli.start();		
+	}
+
+	public void setController(Controller controller) {
+		this.controller = controller;
 	}
 
 	@Override
@@ -76,6 +81,24 @@ public class MyView implements View {
 	@Override
 	public void notifySolutionIsReady(String name) {
 		System.out.println("Solution for maze " + name + " is READY!");		
+	}
+
+	@Override
+	public void displayFiles(File[] files) {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				for(int i=0;i<files.length;i++) {
+					if(files[i].isFile()) {
+						System.out.println("File " + files[i].getName());
+					} else if(files[i].isDirectory()) {
+						System.out.println("Directory " + files[i].getName());
+					}
+				}
+				
+			}
+		}).start();
 	}
 
 }
