@@ -27,6 +27,7 @@ public class CommandsManager {
 		commands.put("load_maze", new LoadMaze());
 		commands.put("solve", new SolveMaze());
 		commands.put("display_solution", new DisplaySolution());
+		commands.put("exit", new ExitCommand());
 		
 		return commands;
 	}
@@ -115,6 +116,15 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			String name = args[0];
 			view.displaySolution(model.getSolution(name));
+		}
+		
+	}
+	
+	public class ExitCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+			model.exit(args);
 		}
 		
 	}

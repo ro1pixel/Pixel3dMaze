@@ -100,5 +100,9 @@ public class MyView implements View {
 			}
 		}).start();
 	}
+	
+	public void printToScreen(String str) {
+		cli.printToScreen(str);
+	}
 
 }

@@ -9,6 +9,7 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import algorithms.search.State;
 import controller.Command;
+import controller.Controller;
 
 public interface View {
 	void start();
@@ -19,4 +20,6 @@ public interface View {
 	void displaySolution(Solution<Position> solution);
 	void notifySolutionIsReady(String name);
 	void displayFiles(File[] files);
+	void setController(Controller controller);
+	void printToScreen(String string);
 }

@@ -11,10 +11,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import algorithms.demo.Maze3dSearchableAdapter;
+import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
+import algorithms.mazeGenerators.RandomPositionChooser;
 import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Solution;
@@ -25,9 +31,9 @@ import io.MyDecompressorInputStream;
 
 public class MyModel implements Model {
 	
-	HashMap<String, Maze3d> savedMaze = new HashMap<>();
-	HashMap<String, Solution<Position>> solutions = new HashMap<>();
-	List<Thread> threads = new ArrayList<>();
+	Map<String, Maze3d> savedMaze;
+	HashMap<String, Solution<Position>> solutions;
+	private ExecutorService execService;
 	
 	Controller controller;
 
@@ -35,12 +41,30 @@ public class MyModel implements Model {
 	
 	public MyModel(Controller controller) {
 		this.controller = controller;
+		savedMaze = new ConcurrentHashMap<>();
+		solutions = new HashMap<>();
+		this.execService = Executors.newFixedThreadPool(20);
 	}
 
 	@Override
 	public void generateMaze(String name, int floors, int height, int width) {
-		// TODO Auto-generated method stub
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if (name!=null){
+					GrowingTreeGenerator generator = new GrowingTreeGenerator(new RandomPositionChooser());
+					Maze3d maze = generator.generate(floors,height, width);
+					savedMaze.put(name, maze);
+				
+					controller.notifyMazeIsReady(name);
+				}
+				else{
+					controller.printToScreen("invalid data");
+				}
+			}	
+		});	
 		
+	//	execService.submit(thread);
 	}
 
 	@Override
@@ -134,7 +158,7 @@ public class MyModel implements Model {
 		});
 		
 		thread.start();
-		threads.add(thread);
+		execService.submit(thread);
 		
 	}
 	
@@ -146,5 +170,15 @@ public class MyModel implements Model {
 	public File[] listFiles(String path) {
 		return (new File(path).listFiles());
 	}
+
+	@Override
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
 	
+	public void exit(String[] args) {
+		execService.shutdown();
+		controller.printToScreen("Closing Application...");
+	}
+
 }

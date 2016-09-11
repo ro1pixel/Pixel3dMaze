@@ -15,6 +15,7 @@ public class MyController implements Controller {
 		this.model = model;
 		
 		commandsManager = new CommandsManager(model,view);
+		view.setCommands(commandsManager.getCommandsMap());
 	}
 
 	@Override
@@ -25,5 +26,9 @@ public class MyController implements Controller {
 	@Override
 	public void notifySolutionIsReady(String name) {
 		view.notifySolutionIsReady(name);
+	}
+	
+	public void printToScreen(String string) {
+		view.printToScreen(string);
 	}
 }
