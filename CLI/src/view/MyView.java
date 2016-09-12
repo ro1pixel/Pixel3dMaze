@@ -50,6 +50,8 @@ public class MyView implements View {
 			}
 		}
 		
+		System.out.println();	
+		
 	}
 
 	@Override
@@ -62,12 +64,12 @@ public class MyView implements View {
 		int[][] zSection = maze.getCrossSectionByZ(z);
 		
 		for(int i=y;i<zSection.length;i++) {
-			System.out.println();
+			System.out.println(" ");
 			for(int j=x;j<zSection[0].length;j++) {
-				System.out.println(zSection[i][j]);
+				System.out.print(zSection[i][j] + " ");
 			}
 		}
-		
+		System.out.println();		
 		
 	}
 
@@ -85,7 +87,7 @@ public class MyView implements View {
 
 	@Override
 	public void displayFiles(File[] files) {
-		new Thread(new Runnable() {
+		Thread thread = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -98,7 +100,8 @@ public class MyView implements View {
 				}
 				
 			}
-		}).start();
+		});
+		thread.start();
 	}
 	
 	public void printToScreen(String str) {

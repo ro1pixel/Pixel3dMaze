@@ -7,16 +7,34 @@ import io.MyCompressorOutputStream;
 import model.Model;
 import view.View;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CommandsManager.
+ */
 public class CommandsManager {
 	
+	/** The model. */
 	private Model model;
+	
+	/** The view. */
 	private View view;
 	
+	/**
+	 * Instantiates a new commands manager.
+	 *
+	 * @param model the model
+	 * @param view the view
+	 */
 	public CommandsManager(Model model, View view) {
 		this.model = model;
 		this.view = view;
 	}
 	
+	/**
+	 * Gets the commands map.
+	 *
+	 * @return the commands map
+	 */
 	public HashMap<String, Command> getCommandsMap() {
 		HashMap<String, Command> commands = new HashMap<>();
 		commands.put("dir", new ViewFilesAndFoldersInPath());
@@ -32,8 +50,14 @@ public class CommandsManager {
 		return commands;
 	}
 	
+	/**
+	 * The Class GenerateMazeCommand generates a maze and saves to Map.
+	 */
 	public class GenerateMazeCommand implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
@@ -45,8 +69,14 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * The Class DisplayMazeCommand.
+	 */
 	public class DisplayMazeCommand implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			view.displayMaze(model.getMaze(args[0]));	
@@ -54,8 +84,14 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * The Class ViewFilesAndFoldersInPath.
+	 */
 	public class ViewFilesAndFoldersInPath implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			String path = args[0];
@@ -64,8 +100,14 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * The Class DisplayCrossSection.
+	 */
 	public class DisplayCrossSection implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
@@ -77,8 +119,14 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * The Class SaveMaze.
+	 */
 	public class SaveMaze implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
@@ -88,8 +136,14 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * The Class LoadMaze.
+	 */
 	public class LoadMaze implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
@@ -99,8 +153,14 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * The Class SolveMaze.
+	 */
 	public class SolveMaze implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
@@ -110,8 +170,14 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * The Class DisplaySolution.
+	 */
 	public class DisplaySolution implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
@@ -120,8 +186,14 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * The Class ExitCommand.
+	 */
 	public class ExitCommand implements Command {
 
+		/* (non-Javadoc)
+		 * @see controller.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			model.exit(args);
