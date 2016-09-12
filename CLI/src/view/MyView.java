@@ -32,7 +32,7 @@ public class MyView implements View {
 
 	@Override
 	public void notifyMazeIsReady(String name) {
-		// TODO Auto-generated method stub
+		System.out.println("Maze " + name + " is READY!");
 		
 	}
 

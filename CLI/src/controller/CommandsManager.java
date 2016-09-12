@@ -40,7 +40,7 @@ public class CommandsManager {
 			int floors = Integer.parseInt(args[1]);
 			int height = Integer.parseInt(args[2]);
 			int width = Integer.parseInt(args[3]);
-			model.generateMaze(name, floors, height, width);			
+			model.generateMaze(name, floors, height, width);
 		}
 		
 	}

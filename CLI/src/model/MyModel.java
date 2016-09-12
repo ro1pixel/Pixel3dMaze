@@ -37,7 +37,11 @@ public class MyModel implements Model {
 	
 	Controller controller;
 
-	public MyModel() {}
+	public MyModel() {
+		savedMaze = new ConcurrentHashMap<>();
+		solutions = new HashMap<>();
+		this.execService = Executors.newFixedThreadPool(20);
+	}
 	
 	public MyModel(Controller controller) {
 		this.controller = controller;
@@ -64,12 +68,13 @@ public class MyModel implements Model {
 			}	
 		});	
 		
-	//	execService.submit(thread);
+		thread.start();
+		execService.submit(thread);
 	}
 
 	@Override
 	public Maze3d getMaze(String name) {
-		return null;
+		return savedMaze.get(name);
 	}
 
 	@Override
