@@ -62,7 +62,7 @@ public class CLI{
 				String input;
 				try {
 					do {
-						printToScreen("Please enter your command and arguments comma seperated: ");
+						printToScreen("Please enter your command and arguments seperated with space: ");
 						input = in.readLine();
 						String command = input.split(" ")[0];
 						if(commands.containsKey(command)) {
