@@ -46,13 +46,13 @@ public class Maze3d {
 	}
 	
 	public Maze3d(byte[] byteArray) {
-		floors = byteArray[0];
-		height = byteArray[1];
-		width = byteArray[2];
+		floors = byteArray[1];
+		height = byteArray[2];
+		width = byteArray[3];
 		
 		array3d = new int[floors][height][width];
-		startPosition = new Position(byteArray[3], byteArray[4], byteArray[5]);
-		goalPosition = new Position(byteArray[6], byteArray[7], byteArray[8]);
+		startPosition = new Position(byteArray[4], byteArray[5], byteArray[6]);
+		goalPosition = new Position(byteArray[7], byteArray[8], byteArray[9]);
 		
 		int pos = 9;
 		

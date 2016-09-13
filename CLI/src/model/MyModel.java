@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -144,7 +145,11 @@ public class MyModel implements Model {
 			try {
 				InputStream in=new MyDecompressorInputStream(
 						new FileInputStream(file_name));
-				byte b[]=new byte[10000];
+				
+				Scanner scanner = new Scanner(in);
+				Scanner input = scanner.useDelimiter(",");
+				byte[] b = new byte[Integer.valueOf(input.next())];
+				
 				try {
 					in.read(b);
 					Maze3d loaded=new Maze3d(b);	

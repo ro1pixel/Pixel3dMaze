@@ -24,6 +24,10 @@ public class MyCompressorOutputStream extends OutputStream {
 		String psik = ",";
 		int i=0;
 		
+		//Write array length
+		out.write(String.valueOf(b.length).getBytes());
+		out.write(psik.getBytes());
+		
 		for(;i<9;i++) {
 			out.write(String.valueOf(b[i]).getBytes());
 			out.write(psik.getBytes());

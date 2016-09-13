@@ -30,7 +30,7 @@ public class Exe3Run {
 		//System.out.println("Algorithm Runtime: " +mg.measureAlgorithmTime(4,12,24));
 		
 		// generate another 3d maze
-		Maze3d maze=mg.generate(3,30,30);	
+		Maze3d maze=mg.generate(3,10,10);	
 	
 //	//print maze
 //	int[][][] array2 = maze.getArray3d();
@@ -77,7 +77,6 @@ public class Exe3Run {
 		try {
 			in.read(b);
 			Maze3d loaded=new Maze3d(b);
-			System.out.println(loaded.equals(maze));
 			
 			//print maze
 			int[][][] array2 = loaded.getArray3d();

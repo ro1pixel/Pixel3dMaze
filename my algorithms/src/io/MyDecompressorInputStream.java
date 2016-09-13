@@ -24,11 +24,13 @@ public class MyDecompressorInputStream extends InputStream {
 		Scanner scanner = new Scanner(in);
 		Scanner input = scanner.useDelimiter(",");
 		
+		//array = new byte[Integer.valueOf(input.next())];
+		input.next();
 		int counter=0;
 		int j = 9;
 		byte wallOrPath = 0;
 		
-		for(int i=0;i<9;i++) {
+		for(int i=1;i<10;i++) {
 			array[i]=Byte.valueOf(input.next());
 		}
 		
@@ -42,24 +44,6 @@ public class MyDecompressorInputStream extends InputStream {
 			}
 		}
 		
-/*		int i=0;
-		@SuppressWarnings("resource")
-		String content = new Scanner(new File("1.maz")).useDelimiter("\\Z").next();
-		String[] split = content.split(",");
-		
-		for(;i<9;i++) {
-			//array[i] = split[i].getBytes();
-		}
-		
-		while(i<array.length) {
-			int count = in.read();
-			byte b = (byte) in.read();
-			
-			for(int j=0;j<count;j++) {
-				array[i++] = b;
-			}
-		}
-		*/
 		return array.length;
 	}
 
