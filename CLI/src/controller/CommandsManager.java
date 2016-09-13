@@ -131,7 +131,7 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			String name = args[0];
 			String file_name = args[1];
-			model.saveMaze(name, file_name);
+			model.saveMaze(name, file_name+".maz");
 		}
 		
 	}
@@ -148,7 +148,7 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			String name = args[0];
 			String file_name = args[1];
-			model.loadMaze(name, file_name);
+			model.loadMaze(name, file_name+".maz");
 		}
 		
 	}
