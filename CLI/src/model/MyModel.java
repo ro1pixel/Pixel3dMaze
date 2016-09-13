@@ -145,13 +145,15 @@ public class MyModel implements Model {
 			try {
 				InputStream in=new MyDecompressorInputStream(
 						new FileInputStream(file_name));
+				InputStream in2=new MyDecompressorInputStream(
+						new FileInputStream(file_name));
 				
 				Scanner scanner = new Scanner(in);
 				Scanner input = scanner.useDelimiter(",");
 				byte[] b = new byte[Integer.valueOf(input.next())];
 				
 				try {
-					in.read(b);
+					in2.read(b);
 					Maze3d loaded=new Maze3d(b);	
 					savedMaze.put(name,loaded);
 				} catch (IOException e) {
