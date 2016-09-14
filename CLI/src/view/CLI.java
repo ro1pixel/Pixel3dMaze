@@ -75,6 +75,11 @@ public class CLI{
 				}
 				catch (IOException e) {
 					e.printStackTrace();
+					start();
+				}
+				catch(Exception e) {
+					printToScreen("Invalid arguments!");
+					start();
 				}
 				
 			}
