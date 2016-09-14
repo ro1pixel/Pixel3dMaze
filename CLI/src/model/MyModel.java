@@ -30,7 +30,6 @@ import controller.Controller;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MyModel.
  */

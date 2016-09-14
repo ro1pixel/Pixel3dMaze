@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import controller.Command;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CLI.
  */
@@ -75,6 +74,11 @@ public class CLI{
 				}
 				catch (IOException e) {
 					e.printStackTrace();
+					start();
+				}
+				catch(Exception e) {
+					printToScreen("Invalid arguments!");
+					start();
 				}
 				
 			}
