@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import controller.Command;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CLI.
  */

@@ -7,7 +7,6 @@ import io.MyCompressorOutputStream;
 import model.Model;
 import view.View;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CommandsManager.
  */
