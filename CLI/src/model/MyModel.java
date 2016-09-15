@@ -138,7 +138,7 @@ public class MyModel implements Model {
 	 * @see model.Model#loadMaze(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void loadMaze(String name, String file_name) {
+	public void loadMaze(String file_name, String name) {
 		
 		if(!savedMaze.containsKey(name)) {
 			try {

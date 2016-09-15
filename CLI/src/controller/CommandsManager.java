@@ -145,9 +145,9 @@ public class CommandsManager {
 		 */
 		@Override
 		public void doCommand(String[] args) {
-			String name = args[0];
-			String file_name = args[1];
-			model.loadMaze(name, file_name+".maz");
+			String name = args[1];
+			String file_name = args[0];
+			model.loadMaze(file_name+".maz", name);
 		}
 		
 	}
