@@ -41,6 +41,8 @@ public class MyModel implements Model {
 	/** The solutions Map. */
 	HashMap<String, Solution<Position>> solutions;
 	
+	HashMap<Maze3d, Solution<Position>> mazeSolution;
+	
 	/** The exec service. */
 	private ExecutorService execService;
 	
