@@ -1,41 +1,32 @@
 package boot;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashMap;
 
-import model.Model;
 import model.MyModel;
-import presenter.Command;
-import presenter.Controller;
-import presenter.MyController;
+import presenter.Presenter;
 import view.CLI;
 import view.MyView;
-import view.View;
 
 public class Run {
 
 	public static void main(String[] args) {
 		
-		CLI cli = new CLI(new BufferedReader(new InputStreamReader(System.in)), 
-				new PrintWriter(System.out));
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter out = new PrintWriter(System.out);
 		
-		Model model = new MyModel();
-		View view = new MyView(cli);
-		Controller controller = new MyController(view, model);
+		CLI cli = new CLI(in, out);
 		
-		view.setController(controller);
-		model.setController(controller);
+		MyModel model = new MyModel();
+		MyView view = new MyView(cli);
 		
-		view.start();
+		Presenter presenter = new Presenter(model, view);
+		
+		model.addObserver(presenter);
+		view.addObserver(presenter);
 
+		view.start();
 	}
 
 }

@@ -25,22 +25,34 @@ public class Presenter implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		String commandLine = (String)arg;
-		
-		String arr[] = commandLine.split(" ");
-		String command = arr[0];
-		
-		if(!commands.containsKey(command)) {
-			view.printToScreen("Command doesn't exist!");
+		if(o == view) {
+			String commandLine = (String)arg;
+			
+			String arr[] = commandLine.split(" ");
+			String command = arr[0];
+			
+			if(!commands.containsKey(command)) {
+				view.printToScreen("Command doesn't exist!");
+			}
+			else {
+				String[] args = null;
+				if(arr.length > 1) {
+					String commandArgs = commandLine.substring(commandLine.indexOf(" ")+1);
+					args = commandArgs.split(" ");			
+				}
+				try {
+				Command cmd = commands.get(command);
+				cmd.doCommand(args);
+				}
+				catch (Exception e) {
+					view.printToScreen("ERROR!");
+					e.printStackTrace();
+				}
+			}
 		}
 		else {
-			String[] args = null;
-			if(arr.length > 1) {
-				String commandArgs = commandLine.substring(commandLine.indexOf(" ")+1);
-				args = commandArgs.split(" ");			
-			}
-			Command cmd = commands.get(command);
-			cmd.doCommand(args);
+			String message = (String)arg;
+			view.printToScreen(message);
 		}
 
 	}

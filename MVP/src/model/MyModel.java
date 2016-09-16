@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -33,7 +34,7 @@ import presenter.Controller;
 /**
  * The Class MyModel.
  */
-public class MyModel implements Model {
+public class MyModel extends Observable implements Model {
 	
 	/** The saved maze Map. */
 	Map<String, Maze3d> savedMaze;
@@ -82,10 +83,13 @@ public class MyModel implements Model {
 					GrowingTreeGenerator generator = new GrowingTreeGenerator(new RandomPositionChooser());
 					Maze3d maze = generator.generate(floors,height, width);
 					savedMaze.put(name, maze);
+					
+					setChanged();
+					notifyObservers("Maze " + "'"+ name + "' is READY!");
 				
 				}
 				else{
-					controller.printToScreen("invalid data");
+					notifyObservers("invalid data");
 				}
 			}	
 		});	
@@ -117,16 +121,15 @@ public class MyModel implements Model {
 					try {
 						out.write(maze.toByteArray());
 						out.flush();
+						notifyObservers("Maze has been saved successfully!");
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						notifyObservers("There was an error saving the maze.");
 					}
 					finally {
 						try {
 							out.close();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							notifyObservers("Error saving the file!");
 						}
 					}
 		} catch (FileNotFoundException e) {
@@ -157,6 +160,8 @@ public class MyModel implements Model {
 					in2.read(b);
 					Maze3d loaded=new Maze3d(b);	
 					savedMaze.put(name,loaded);
+					setChanged();
+					notifyObservers("Maze" + name + " has been loaded successfully!");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -167,15 +172,15 @@ public class MyModel implements Model {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					controller.printToScreen("Maze loaded successfuly!");
+					notifyObservers("Maze loaded successfuly!");
 				}
 			} catch (FileNotFoundException e) {
-				controller.printToScreen("Error loading your maze.");
+				notifyObservers("Error loading your maze.");
 				e.printStackTrace();
 			}
 		}
 		else {
-			controller.printToScreen("Maze already exists!");
+			notifyObservers("Maze already exists!");
 		}
 		
 	}
@@ -202,10 +207,12 @@ public class MyModel implements Model {
 					DFS<Position> searcher = new DFS<>();
 					solution = searcher.search(mazeAdapter);
 				}else {
-					System.out.println("Wrong method. Available options are BFS/DFS");
+					notifyObservers("Wrong method. Available options are BFS/DFS");
 				}
 				
 				solutions.put(name, solution);
+				setChanged();
+				notifyObservers("Maze " + name + " has been solved!");
 			}
 		});
 		
@@ -227,7 +234,21 @@ public class MyModel implements Model {
 	 */
 	@Override
 	public File[] listFiles(String path) {
-		return (new File(path).listFiles());
+		if(path!=null) {
+			File file = new File(path);
+			if(file.isDirectory() && file.exists()) {
+				return (new File(path).listFiles());
+			}
+			else {
+				notifyObservers("ERROR:" + path +" does not exist!");
+				return null;
+			}
+		}
+		else {
+			notifyObservers("Path cannot be NULL!");
+			return null;
+		}
+		
 	}
 
 	/* (non-Javadoc)
@@ -243,7 +264,7 @@ public class MyModel implements Model {
 	 */
 	public void exit(String[] args) {
 		execService.shutdown();
-		controller.printToScreen("Closing Application...");
+		notifyObservers("Closing Application . . .");
 		System.exit(1);
 	}
 

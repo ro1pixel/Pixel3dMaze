@@ -3,6 +3,8 @@ package view;
 import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
@@ -14,7 +16,7 @@ import presenter.Controller;
 /**
  * The Class MyView.
  */
-public class MyView implements View {
+public class MyView extends Observable implements View, Observer {
 	
 	/** The cli. */
 	CLI cli;
@@ -77,13 +79,6 @@ public class MyView implements View {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see view.View#setCommands(java.util.HashMap)
-	 */
-	@Override
-	public void setCommands(HashMap<String, Command> commands) {
-		cli.setCommands(commands);	
-	}
 
 	/* (non-Javadoc)
 	 * @see view.View#displayCrossSection(algorithms.mazeGenerators.Maze3d, int, int, int)
@@ -147,6 +142,14 @@ public class MyView implements View {
 	 */
 	public void printToScreen(String str) {
 		cli.printToScreen(str);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o == cli) {
+			setChanged();
+			notifyObservers(arg);
+		}	
 	}
 
 }

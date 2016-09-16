@@ -46,13 +46,6 @@ public interface View {
 	void displayCrossSection(Maze3d maze,int z,int y,int x);
 	
 	/**
-	 * Sets the commands.
-	 *
-	 * @param commands the commands
-	 */
-	void setCommands(HashMap<String, Command> commands); 
-	
-	/**
 	 * Display solution.
 	 *
 	 * @param solution the solution
