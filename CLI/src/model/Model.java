@@ -40,11 +40,11 @@ public interface Model {
 	
 	/**
 	 * Load maze from a file.
-	 *
-	 * @param name the name
+	 * 
 	 * @param file_name the file name
+	 * @param name the name
 	 */
-	void loadMaze(String name, String file_name);
+	void loadMaze(String file_name, String name);
 	
 	/**
 	 * Solve maze.
