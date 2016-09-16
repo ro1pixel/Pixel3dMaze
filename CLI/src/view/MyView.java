@@ -75,8 +75,8 @@ public class MyView implements View {
 
 	@Override
 	public void displaySolution(Solution<Position> solution) {
-		System.out.println("----- Paths -----");
-		System.out.println("BFS Path: " + solution);
+		System.out.println("----- Solution Path -----");
+		System.out.println(solution);
 		System.out.println();
 	}
 
