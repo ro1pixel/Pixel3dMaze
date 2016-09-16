@@ -26,9 +26,9 @@ import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Solution;
 import algorithms.search.State;
-import controller.Controller;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
+import presenter.Controller;
 
 /**
  * The Class MyModel.

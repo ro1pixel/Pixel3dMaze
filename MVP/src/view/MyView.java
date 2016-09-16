@@ -8,8 +8,8 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import algorithms.search.State;
-import controller.Command;
-import controller.Controller;
+import presenter.Command;
+import presenter.Controller;
 
 /**
  * The Class MyView.

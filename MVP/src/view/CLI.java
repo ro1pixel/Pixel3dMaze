@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import controller.Command;
+import presenter.Command;
 
 /**
  * The Class CLI.

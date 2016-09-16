@@ -11,11 +11,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
-import controller.Command;
-import controller.Controller;
-import controller.MyController;
 import model.Model;
 import model.MyModel;
+import presenter.Command;
+import presenter.Controller;
+import presenter.MyController;
 import view.CLI;
 import view.MyView;
 import view.View;

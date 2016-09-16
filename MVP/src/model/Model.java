@@ -5,7 +5,7 @@ import java.io.File;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
-import controller.Controller;
+import presenter.Controller;
 
 /**
  * The Interface Model.
