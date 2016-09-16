@@ -16,10 +16,8 @@ public class Run {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		PrintWriter out = new PrintWriter(System.out);
 		
-		CLI cli = new CLI(in, out);
-		
+		MyView view = new MyView(in,out);
 		MyModel model = new MyModel();
-		MyView view = new MyView(cli);
 		
 		Presenter presenter = new Presenter(model, view);
 		

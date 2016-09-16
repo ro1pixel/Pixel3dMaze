@@ -14,9 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Scanner;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.naming.directory.DirContext;
+import javax.print.attribute.ResolutionSyntax;
 
 import algorithms.demo.Maze3dSearchableAdapter;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
@@ -76,9 +80,10 @@ public class MyModel extends Observable implements Model {
 	 */
 	@Override
 	public void generateMaze(String name, int floors, int height, int width) {
-		Thread thread = new Thread(new Runnable() {
+		Callable<Maze3d> thread = new Callable<Maze3d>() {
+
 			@Override
-			public void run() {
+			public Maze3d call() throws Exception {
 				if (name!=null){
 					GrowingTreeGenerator generator = new GrowingTreeGenerator(new RandomPositionChooser());
 					Maze3d maze = generator.generate(floors,height, width);
@@ -86,16 +91,15 @@ public class MyModel extends Observable implements Model {
 					
 					setChanged();
 					notifyObservers("Maze " + "'"+ name + "' is READY!");
-				
+					return maze;				
 				}
 				else{
 					notifyObservers("invalid data");
+					return null;
 				}
 			}	
-		});	
+		};
 		
-		thread.start();
-		controller.notifyMazeIsReady(name);
 		execService.submit(thread);
 	}
 
@@ -161,7 +165,7 @@ public class MyModel extends Observable implements Model {
 					Maze3d loaded=new Maze3d(b);	
 					savedMaze.put(name,loaded);
 					setChanged();
-					notifyObservers("Maze" + name + " has been loaded successfully!");
+					notifyObservers("Maze " + name + " has been loaded successfully!");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -169,7 +173,6 @@ public class MyModel extends Observable implements Model {
 					try {
 						in.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					notifyObservers("Maze loaded successfuly!");
@@ -191,10 +194,11 @@ public class MyModel extends Observable implements Model {
 	@Override
 	public void solveMaze(String name, String algorithm) {
 		
-		Thread thread = new Thread(new Runnable() {
-			
+		Callable<Solution<Position>> thread = new Callable<Solution<Position>>() {
+
 			@Override
-			public void run() {
+			public Solution<Position> call() throws Exception {
+
 				Maze3d maze = getMaze(name);
 				Solution<Position> solution = new Solution<>();
 				Maze3dSearchableAdapter mazeAdapter = new Maze3dSearchableAdapter(maze);
@@ -213,11 +217,10 @@ public class MyModel extends Observable implements Model {
 				solutions.put(name, solution);
 				setChanged();
 				notifyObservers("Maze " + name + " has been solved!");
+				return solution;
 			}
-		});
+		};
 		
-		controller.notifySolutionIsReady(name);
-		thread.start();
 		execService.submit(thread);
 		
 	}

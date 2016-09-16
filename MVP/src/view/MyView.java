@@ -1,6 +1,8 @@
 package view;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -18,6 +20,10 @@ import presenter.Controller;
  */
 public class MyView extends Observable implements View, Observer {
 	
+	private BufferedReader in;
+	
+	private PrintWriter out;
+	
 	/** The cli. */
 	CLI cli;
 	
@@ -32,6 +38,14 @@ public class MyView extends Observable implements View, Observer {
 	public MyView(CLI cli) {
 		super();
 		this.cli = cli;
+	}
+	
+	public MyView(BufferedReader in, PrintWriter out) {
+		this.in = in;
+		this.out = out;
+				
+		cli = new CLI(this.in, this.out);
+		cli.addObserver(this);
 	}
 
 	/* (non-Javadoc)

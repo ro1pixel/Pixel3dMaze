@@ -44,21 +44,14 @@ public class CLI extends Observable{
 			
 			@Override
 			public void run() {
-				String input;
+				String input = "-1";
+				printToScreen("Please enter your commands and arguments seperated with space: ");
 				try {
-					do {
-						printToScreen("Please enter your command and arguments seperated with space: ");
+					while(input != "exit") {
 						input = in.readLine();
 						setChanged();
 						notifyObservers(input);
-//						String command = input.split(" ")[0];
-//						if(commands.containsKey(command)) {
-//							commands.get(command).doCommand(input.substring(input.indexOf(" ")+1,input.length()).split(" "));
-//						}
-//						else {
-//							printToScreen("Please enter a valid command!");
-//						}
-					} while (input != "exit");
+					}
 				}
 				catch (IOException e) {
 					e.printStackTrace();
@@ -81,27 +74,6 @@ public class CLI extends Observable{
 	public void printToScreen(String str) {
 		out.println(str);
 		out.flush();
-	}
-	
-    /**
-     * Print a menu to the viewer
-     */
-	public void printMenu(){
-		printToScreen("\n\n********************************");
-		printToScreen("what do want to do? ");
-		printToScreen("		dir <path>");
-		printToScreen("		generate_maze <mazeName> <x> <y> <z>");
-		printToScreen("		display <name>");
-		printToScreen("		display_cross_section <axle> <index> <mazeName>");
-    	printToScreen("		save_maze <mazeName> <fileName>");
-    	printToScreen("		load_maze <mazeName> <fileName>");
-    	printToScreen("		solve <mazeName> <algorithm>");
-    	printToScreen("		display_solution <mazeName>");
-    	printToScreen("		exit");
-    	printToScreen("********************************\n");
-		/*for (String command : commands.keySet()) {
-			out.print(command + ",");
-		}*/
 	}
 	
 }
