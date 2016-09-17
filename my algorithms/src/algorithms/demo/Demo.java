@@ -62,6 +62,8 @@ public class Demo {
 		System.out.println("BFS Solution: " + BFSsolution.pathSize());	
 		System.out.println("DFS Nodes: " + DFSSearcher.getNumberOfNodesEvaluated());	
 		System.out.println("DFS Solution: " + DFSsolution.pathSize());
+		
+		BFSsolution.toByteArray();
 	}
 	
 }

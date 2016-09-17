@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+import java.util.ArrayList;
+
 /**
  * The Class Position.
  * Defines a Position for maze.
@@ -271,6 +273,17 @@ public class Position {
 			return true;
 		else
 			return false;
+	}
+	
+	public byte[] toByte() {
+		byte[] byteArray = new byte[3];
+		
+		//add Position
+		byteArray[0] = (byte)z;
+		byteArray[1] = (byte)y;
+		byteArray[2] = (byte)x;
+		
+		return byteArray;
 	}
 	
 	

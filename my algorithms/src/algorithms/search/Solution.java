@@ -1,6 +1,9 @@
 package algorithms.search;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+
+import algorithms.mazeGenerators.Position;
 
 /**
  * The Class Solution.
@@ -54,6 +57,25 @@ public class Solution<T> {
 			sb.append(s.toString()).append(" ");
 		}
 		return sb.toString();
+	}
+	
+	public byte[] toByteArray() {
+		ArrayList<Byte> byteArray = new ArrayList<>();
+		
+		for(int i=0;i<path.size();i++) {
+			Position currpos = (Position) path.get(i).getValue();
+			byte[] currByte = currpos.toByte();
+			for(Byte b : currByte) {
+				byteArray.add(b);
+			}
+		}
+		
+		byte[] finalArray = new byte[byteArray.size()];
+		for(int i=0;i<byteArray.size();i++) {
+			finalArray[i] = byteArray.get(i);
+		}
+		
+		return finalArray;
 	}
 	
 }

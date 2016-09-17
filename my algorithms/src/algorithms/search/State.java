@@ -132,4 +132,5 @@ public class State<T> implements Comparable<State<T>> {
 	public int hashCode() {
 		return toString().hashCode();
 	}	
+	
 }
