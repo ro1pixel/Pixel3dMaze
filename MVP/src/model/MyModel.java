@@ -1,5 +1,8 @@
 package model;
 
+import java.awt.geom.Ellipse2D;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,6 +10,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.WriteAbortedException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,8 +22,11 @@ import java.util.Observable;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.zip.GZIPOutputStream;
 
 import javax.naming.directory.DirContext;
 import javax.print.attribute.ResolutionSyntax;
@@ -61,6 +70,8 @@ public class MyModel extends Observable implements Model {
 		savedMaze = new ConcurrentHashMap<>();
 		solutions = new HashMap<>();
 		this.execService = Executors.newFixedThreadPool(20);
+		this.mazeSolution = new HashMap<>();
+		
 	}
 	
 	/**
@@ -73,6 +84,7 @@ public class MyModel extends Observable implements Model {
 		savedMaze = new ConcurrentHashMap<>();
 		solutions = new HashMap<>();
 		this.execService = Executors.newFixedThreadPool(20);
+		this.mazeSolution = new HashMap<>();
 	}
 
 	/* (non-Javadoc)
@@ -94,13 +106,23 @@ public class MyModel extends Observable implements Model {
 					return maze;				
 				}
 				else{
+					setChanged();
 					notifyObservers("invalid data");
 					return null;
 				}
 			}	
 		};
 		
-		execService.submit(thread);
+		Future<Maze3d> future = execService.submit(thread);
+		while(!future.isDone()){}
+		setChanged();
+		try {
+			if(future.get()!=null)
+				notifyObservers("Thread Finished");
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/* (non-Javadoc)
@@ -125,14 +147,17 @@ public class MyModel extends Observable implements Model {
 					try {
 						out.write(maze.toByteArray());
 						out.flush();
+						setChanged();
 						notifyObservers("Maze has been saved successfully!");
 					} catch (IOException e) {
+						setChanged();
 						notifyObservers("There was an error saving the maze.");
 					}
 					finally {
 						try {
 							out.close();
 						} catch (IOException e) {
+							setChanged();
 							notifyObservers("Error saving the file!");
 						}
 					}
@@ -175,14 +200,17 @@ public class MyModel extends Observable implements Model {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					setChanged();
 					notifyObservers("Maze loaded successfuly!");
 				}
 			} catch (FileNotFoundException e) {
+				setChanged();
 				notifyObservers("Error loading your maze.");
 				e.printStackTrace();
 			}
 		}
 		else {
+			setChanged();
 			notifyObservers("Maze already exists!");
 		}
 		
@@ -198,30 +226,86 @@ public class MyModel extends Observable implements Model {
 
 			@Override
 			public Solution<Position> call() throws Exception {
-
-				Maze3d maze = getMaze(name);
-				Solution<Position> solution = new Solution<>();
-				Maze3dSearchableAdapter mazeAdapter = new Maze3dSearchableAdapter(maze);
 				
-				if(algorithm.equals("BFS") || algorithm.equals("bfs")) {
-					BFS<Position> searcher = new BFS<>();
-					solution = searcher.search(mazeAdapter);
+				if(name!= null && algorithm != null) {
+					if(savedMaze.containsKey(name)) {
+						if(mazeSolution.containsKey(savedMaze.get(name))) {
+							setChanged();
+							notifyObservers("Solution already exists.");
+							return mazeSolution.get(savedMaze.get(name));
+						}
+						
+						Maze3d maze = getMaze(name);
+						Solution<Position> solution = new Solution<>();
+						Maze3dSearchableAdapter mazeAdapter = new Maze3dSearchableAdapter(maze);
+						
+						if(algorithm.equals("BFS") || algorithm.equals("bfs")) {
+							BFS<Position> searcher = new BFS<>();
+							solution = searcher.search(mazeAdapter);
+							solutions.put(name, solution);
+						}
+						else if (algorithm.equals("DFS") || algorithm.equals("dfs")) {
+							DFS<Position> searcher = new DFS<>();
+							solution = searcher.search(mazeAdapter);
+							solutions.put(name, solution);
+						}else {
+							setChanged();
+							notifyObservers("Wrong method. Available options are BFS/DFS");
+							return null;
+						}
+						
+						mazeSolution.put(savedMaze.get(name), solution);
+						setChanged();
+						notifyObservers("Maze " + name + " has been solved!");
+						return solution;
+					}
+					else {
+						setChanged();
+						notifyObservers("Maze not found!");
+						return null;
+					}
 				}
-				else if (algorithm.equals("DFS") || algorithm.equals("dfs")) {
-					DFS<Position> searcher = new DFS<>();
-					solution = searcher.search(mazeAdapter);
-				}else {
-					notifyObservers("Wrong method. Available options are BFS/DFS");
+				else {
+					setChanged();
+					notifyObservers("Wrong input!");
+					return null;
 				}
-				
-				solutions.put(name, solution);
-				setChanged();
-				notifyObservers("Maze " + name + " has been solved!");
-				return solution;
 			}
+
 		};
 		
-		execService.submit(thread);
+
+		Future<Solution<Position>> future = execService.submit(thread);
+		while(!future.isDone()){}
+		setChanged();
+		try {
+			GZIPOutputStream zip = new GZIPOutputStream(new FileOutputStream(new File("Solutions.zip")));
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(zip, "UTF-8"));
+			for(int i=0;i<mazeSolution.size();i++) {
+				writer.append(savedMaze.get(name).toString());
+				writer.append(mazeSolution.get(savedMaze.get(name)).toString());
+			}
+			
+			if(future.get()!=null) {
+				notifyObservers("Thread Finished");
+			}
+			
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				writer.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	
@@ -243,11 +327,13 @@ public class MyModel extends Observable implements Model {
 				return (new File(path).listFiles());
 			}
 			else {
+				setChanged();
 				notifyObservers("ERROR:" + path +" does not exist!");
 				return null;
 			}
 		}
 		else {
+			setChanged();
 			notifyObservers("Path cannot be NULL!");
 			return null;
 		}
@@ -267,6 +353,7 @@ public class MyModel extends Observable implements Model {
 	 */
 	public void exit(String[] args) {
 		execService.shutdown();
+		setChanged();
 		notifyObservers("Closing Application . . .");
 		System.exit(1);
 	}
