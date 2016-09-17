@@ -1,18 +1,21 @@
 package model;
 
-import java.awt.geom.Ellipse2D;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.WriteAbortedException;
 import java.io.Writer;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -26,6 +29,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import javax.naming.directory.DirContext;
@@ -278,33 +282,13 @@ public class MyModel extends Observable implements Model {
 		Future<Solution<Position>> future = execService.submit(thread);
 		while(!future.isDone()){}
 		setChanged();
-		try {
-			GZIPOutputStream zip = new GZIPOutputStream(new FileOutputStream(new File("Solutions.zip")));
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(zip, "UTF-8"));
-			for(int i=0;i<mazeSolution.size();i++) {
-				writer.append(savedMaze.get(name).toString());
-				writer.append(mazeSolution.get(savedMaze.get(name)).toString());
-			}
-			
+		try {			
 			if(future.get()!=null) {
 				notifyObservers("Thread Finished");
 			}
-			
+			saveCache(name);	
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				writer.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 	}
@@ -357,5 +341,44 @@ public class MyModel extends Observable implements Model {
 		notifyObservers("Closing Application . . .");
 		System.exit(1);
 	}
+	
+	private void saveCache(String mazeName) {
+		FileOutputStream fos = null;
+		GZIPOutputStream gos = null;
+		ObjectOutputStream oos = null;
+		try {
+			fos = new FileOutputStream("Solutions.zip", true);
+			gos = new GZIPOutputStream(fos);
+			oos = new ObjectOutputStream(gos);
+			oos.writeObject(savedMaze.get(mazeName));
+			oos.flush();
+			oos.close();
+			gos.close();
+			fos.close();
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		}	
+	}
+	
+	private void loadCache() {
+		Maze3d maze = null;
+		FileInputStream fis = null;
+		GZIPInputStream gis = null;
+		ObjectInputStream ois = null;
+		try {
+			fis = new FileInputStream("Solutions.zip");
+			gis = new GZIPInputStream(fis);
+			ois = new ObjectInputStream(gis);
+			maze = (Maze3d) ois.readObject();
+			ois.close();
+			gis.close();
+			fis.close();
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		} catch(ClassNotFoundException cnfe) {
+			cnfe.printStackTrace();
+		}
 
+		// TODO: Populate hash-set..
+	}
 }
