@@ -1,5 +1,7 @@
 package algorithms.search;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -11,7 +13,12 @@ import algorithms.mazeGenerators.Position;
  * 
  * @param <T> the state being checked
  */
-public class Solution<T> {
+public class Solution<T> implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2422118270064724521L;
 	
 	/** The path of the solution. */
 	private LinkedList<State<T>> path = new LinkedList<>();
@@ -76,6 +83,10 @@ public class Solution<T> {
 		}
 		
 		return finalArray;
+	}
+	
+	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
 	}
 	
 }
