@@ -18,6 +18,7 @@ import java.io.Writer;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -286,7 +287,7 @@ public class MyModel extends Observable implements Model {
 			if(future.get()!=null) {
 				notifyObservers("Thread Finished");
 			}
-			saveCache(name);	
+			saveCache();	
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
@@ -342,14 +343,18 @@ public class MyModel extends Observable implements Model {
 		System.exit(1);
 	}
 	
-	private void saveCache(String mazeName) {
+	private void saveCache() {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(
 									new GZIPOutputStream(
 									new FileOutputStream("Solutions.zip")));
-			out.writeObject(savedMaze.get(mazeName));
-			out.writeObject(mazeSolution.get(mazeName));
+			Iterator it = savedMaze.entrySet().iterator();
 			
+			while(it.hasNext()) {
+				Map.Entry<Maze3d,Solution<Position>> pair = (Map.Entry<Maze3d,Solution<Position>>)it.next();
+				out.writeObject(pair.getKey());
+				out.writeObject(pair.getValue());
+			}
 			out.close();
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
