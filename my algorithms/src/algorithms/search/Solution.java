@@ -84,9 +84,5 @@ public class Solution<T> implements Serializable {
 		
 		return finalArray;
 	}
-	
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException {
-		stream.writeObject(path);
-	}
-	
+
 }

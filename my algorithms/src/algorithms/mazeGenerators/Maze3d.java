@@ -14,7 +14,7 @@ public class Maze3d implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5779742369434452592L;
 
 	/** The array3d. */
 	int array3d[][][] = null;
@@ -343,17 +343,5 @@ public Position getStartPosition() {
 			return true;
 		return false;
 	}
-	
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException {
-		stream.writeObject(array3d);
-		stream.writeObject(startPosition);
-		stream.writeObject(currentPosition);
-		stream.writeObject(goalPosition);
-		stream.writeObject(height);
-		stream.writeObject(width);
-		stream.writeObject(floors);
-	}
-	
-	
 	
 }
