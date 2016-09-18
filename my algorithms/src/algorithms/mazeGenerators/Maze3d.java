@@ -344,8 +344,14 @@ public Position getStartPosition() {
 		return false;
 	}
 	
-	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
+	private void writeObject(java.io.ObjectOutputStream stream) throws IOException {
+		stream.writeObject(array3d);
+		stream.writeObject(startPosition);
+		stream.writeObject(currentPosition);
+		stream.writeObject(goalPosition);
+		stream.writeObject(height);
+		stream.writeObject(width);
+		stream.writeObject(floors);
 	}
 	
 	

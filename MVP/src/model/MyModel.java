@@ -19,6 +19,7 @@ import java.net.NetworkInterface;
 import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,6 +37,10 @@ import java.util.zip.GZIPOutputStream;
 
 import javax.naming.directory.DirContext;
 import javax.print.attribute.ResolutionSyntax;
+import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import algorithms.demo.Maze3dSearchableAdapter;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
@@ -49,6 +54,7 @@ import algorithms.search.State;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 import presenter.Controller;
+import presenter.Properties;
 
 /**
  * The Class MyModel.
@@ -68,6 +74,9 @@ public class MyModel extends Observable implements Model {
 	
 	/** The controller. */
 	Controller controller;
+	private String generationType;
+	private String solvingAlgorithm;
+	private int maxThreads;
 
 	/**
 	 * Instantiates a new my model.
@@ -77,7 +86,7 @@ public class MyModel extends Observable implements Model {
 		solutions = new HashMap<>();
 		this.execService = Executors.newFixedThreadPool(20);
 		this.mazeSolution = new HashMap<>();
-		
+		loadProperties();		
 	}
 	
 	/**
@@ -91,6 +100,7 @@ public class MyModel extends Observable implements Model {
 		solutions = new HashMap<>();
 		this.execService = Executors.newFixedThreadPool(20);
 		this.mazeSolution = new HashMap<>();
+		loadProperties();
 	}
 
 	/* (non-Javadoc)
@@ -381,5 +391,24 @@ public class MyModel extends Observable implements Model {
 		}
 
 		// TODO: Populate hash-set..
+	}
+	
+	public void loadProperties() {
+		//Load properties
+			Properties properties = new Properties();
+			FileInputStream xml;
+			
+			try {
+				xml = new FileInputStream("Properties.xml");
+				properties = JAXB.unmarshal(xml, Properties.class);
+				this.generationType = properties.getGenerationType();
+				this.solvingAlgorithm = properties.getSolvingAlgorithm();
+				this.maxThreads = properties.getMaxThreads();
+				System.out.println("Properties loaded successfully!");
+			} catch (Exception e) {
+				setChanged();
+				System.out.println("Error loading properties! :(");
+				e.printStackTrace();
+			}
 	}
 }
