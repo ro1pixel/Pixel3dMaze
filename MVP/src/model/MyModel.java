@@ -356,7 +356,7 @@ public class MyModel extends Observable implements Model {
 	
 	private void saveCache() {
 		
-		File file = new File("Solutions.zip");
+		File file = new File("Cache.zip");
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 		GZIPOutputStream gzipos = null;
@@ -407,7 +407,7 @@ public class MyModel extends Observable implements Model {
 		try {
 			ObjectInputStream in = new ObjectInputStream(
 					new GZIPInputStream(
-					new FileInputStream("Solutions.zip")));
+					new FileInputStream("Cache.zip")));
 			while(true){
 				maze = (Maze3d) in.readObject();
 				if(maze==null)
