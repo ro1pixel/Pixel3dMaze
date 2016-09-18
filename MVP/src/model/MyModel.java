@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.io.WriteAbortedException;
 import java.io.Writer;
 import java.net.NetworkInterface;
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -348,13 +349,15 @@ public class MyModel extends Observable implements Model {
 			ObjectOutputStream out = new ObjectOutputStream(
 									new GZIPOutputStream(
 									new FileOutputStream("Solutions.zip")));
-			Iterator it = savedMaze.entrySet().iterator();
+			
+			Iterator<java.util.Map.Entry<Maze3d, Solution<Position>>> it = mazeSolution.entrySet().iterator();
 			
 			while(it.hasNext()) {
-				Map.Entry<Maze3d,Solution<Position>> pair = (Map.Entry<Maze3d,Solution<Position>>)it.next();
+				Map.Entry<Maze3d, Solution<Position>> pair = (Map.Entry<Maze3d, Solution<Position>>) it.next();
 				out.writeObject(pair.getKey());
 				out.writeObject(pair.getValue());
 			}
+			
 			out.close();
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
