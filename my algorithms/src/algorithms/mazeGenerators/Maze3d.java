@@ -1,15 +1,21 @@
 package algorithms.mazeGenerators;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * The Class Maze3d.
  * Defines a 3D maze.
- * a test for change
  */
-public class Maze3d {
+public class Maze3d implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The array3d. */
 	int array3d[][][] = null;
 	
@@ -336,6 +342,10 @@ public Position getStartPosition() {
 		if(object.getArray3d() == array3d)
 			return true;
 		return false;
+	}
+	
+	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
 	}
 	
 	
