@@ -343,18 +343,14 @@ public class MyModel extends Observable implements Model {
 	}
 	
 	private void saveCache(String mazeName) {
-		FileOutputStream fos = null;
-		GZIPOutputStream gos = null;
-		ObjectOutputStream oos = null;
 		try {
-			fos = new FileOutputStream("Solutions.zip", true);
-			gos = new GZIPOutputStream(fos);
-			oos = new ObjectOutputStream(gos);
-			oos.writeObject(savedMaze.get(mazeName));
-			oos.flush();
-			oos.close();
-			gos.close();
-			fos.close();
+			ObjectOutputStream out = new ObjectOutputStream(
+									new GZIPOutputStream(
+									new FileOutputStream("Solutions.zip")));
+			out.writeObject(savedMaze.get(mazeName));
+			out.writeObject(mazeSolution.get(mazeName));
+			
+			out.close();
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 		}	
@@ -362,21 +358,18 @@ public class MyModel extends Observable implements Model {
 	
 	private void loadCache() {
 		Maze3d maze = null;
-		FileInputStream fis = null;
-		GZIPInputStream gis = null;
-		ObjectInputStream ois = null;
 		try {
-			fis = new FileInputStream("Solutions.zip");
-			gis = new GZIPInputStream(fis);
-			ois = new ObjectInputStream(gis);
-			maze = (Maze3d) ois.readObject();
-			ois.close();
-			gis.close();
-			fis.close();
-		} catch(IOException ioe) {
+			ObjectInputStream in = new ObjectInputStream(
+					new GZIPInputStream(
+					new FileInputStream("Solutions.zip")));
+			while(true){
+				maze = (Maze3d) in.readObject();
+				if(maze==null)
+					break;
+			}
+			in.close();
+		} catch(IOException | ClassNotFoundException ioe) {
 			ioe.printStackTrace();
-		} catch(ClassNotFoundException cnfe) {
-			cnfe.printStackTrace();
 		}
 
 		// TODO: Populate hash-set..
