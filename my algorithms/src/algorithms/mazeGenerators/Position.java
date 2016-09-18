@@ -1,13 +1,18 @@
 package algorithms.mazeGenerators;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * The Class Position.
  * Defines a Position for maze.
  */
-public class Position {
+public class Position implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6533874948780906938L;
+
 	/** Is up Position already visited. */
 	private boolean upVisited = false;
 	

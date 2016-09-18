@@ -16,7 +16,6 @@ import java.io.OutputStreamWriter;
 import java.io.WriteAbortedException;
 import java.io.Writer;
 import java.net.NetworkInterface;
-import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
@@ -24,6 +23,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
@@ -355,24 +355,52 @@ public class MyModel extends Observable implements Model {
 	}
 	
 	private void saveCache() {
+		
+		File file = new File("Solutions.zip");
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+		GZIPOutputStream gzipos = null;
+		
 		try {
-			ObjectOutputStream out = new ObjectOutputStream(
-									new GZIPOutputStream(
-									new FileOutputStream("Solutions.zip")));
+			if(!file.exists())
+				file.createNewFile();
 			
-			Iterator<java.util.Map.Entry<Maze3d, Solution<Position>>> it = mazeSolution.entrySet().iterator();
+			fos = new FileOutputStream(file,true);
+			gzipos = new GZIPOutputStream(fos);
+			oos = new ObjectOutputStream(gzipos);
 			
-			while(it.hasNext()) {
-				Map.Entry<Maze3d, Solution<Position>> pair = (Map.Entry<Maze3d, Solution<Position>>) it.next();
-				out.writeObject(pair.getKey());
-				out.writeObject(pair.getValue());
+			for(Entry<Maze3d, Solution<Position>> e : mazeSolution.entrySet()) {
+				oos.writeObject(e.getKey());
+				oos.flush();
+				oos.writeObject(e.getValue());
+				oos.flush();
 			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				oos.close();
+				gzipos.close();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 			
-			out.close();
-		} catch(IOException ioe) {
-			ioe.printStackTrace();
-		}	
+//			Iterator<java.util.Map.Entry<Maze3d, Solution<Position>>> it = mazeSolution.entrySet().iterator();
+//			
+//			while(it.hasNext()) {
+//				Map.Entry<Maze3d, Solution<Position>> pair = (Map.Entry<Maze3d, Solution<Position>>) it.next();
+//				out.writeObject(pair.getKey());
+//				out.writeObject(pair.getValue());
+//			}
+//			
+//			out.close();
+//		} catch(IOException ioe) {
+//			ioe.printStackTrace();
+//		}	
 	}
+
 	
 	private void loadCache() {
 		Maze3d maze = null;
