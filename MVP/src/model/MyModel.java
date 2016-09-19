@@ -357,93 +357,58 @@ public class MyModel extends Observable implements Model {
 	}
 	
 	private void saveCache() {
-		
-		File file = new File("Cache.zip");
-		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
-		GZIPOutputStream gzipos = null;
 		
 		try {
-			if(!file.exists())
-				file.createNewFile();
-			
-			fos = new FileOutputStream(file);
-			gzipos = new GZIPOutputStream(fos);
-			oos = new ObjectOutputStream(gzipos);
-			
+			oos = new ObjectOutputStream(
+					new GZIPOutputStream(
+					new FileOutputStream("Solutions.zip")));
 			oos.writeObject(mazeSolution);
-			
-//			for(Entry<Maze3d, Solution<Position>> e : mazeSolution.entrySet()) {
-//				oos.writeObject(e.getKey());
-//				oos.flush();
-//				oos.writeObject(e.getValue());
-//				oos.flush();
-//			}
-		} catch(IOException e) {
+			System.out.println("Cache was saved successfully!");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				oos.close();
-				gzipos.close();
-				fos.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}	
+		}
 	}
 
 	
 	@SuppressWarnings("unchecked")
 	private void loadCache() {
+		File file = new File("Solutions.zip");
+		if(!file.exists() | !file.canRead())
+			return;
 		
-		File file = new File("Cache.zip");
-		FileInputStream fis = null;
 		ObjectInputStream ois = null;
-		GZIPInputStream gzipis = null;
-		
-		Maze3d currMaze = null;
-		Solution<Position> currSol = null;
 		
 		try {
-			if(file.exists()) {
-				fis = new FileInputStream(file);
-				gzipis = new GZIPInputStream(fis);
-				ois = new ObjectInputStream(gzipis);
-				System.out.println(mazeSolution);
-				try {
-					mazeSolution = (HashMap<Maze3d, Solution<Position>>) ois.readObject();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-//				try {
-//					do {
-//							currMaze = (Maze3d) ois.readObject();
-//							currSol = (Solution<Position>) ois.readObject();
-//							mazeSolution.put(currMaze, currSol);
-//				} while (currMaze != null);
-//			} catch(EOFException e) {
-//				System.out.println("End of file");
-//			} catch(IOException e) {
-//				e.printStackTrace();
-//			} catch (ClassNotFoundException e) {
-//				e.printStackTrace();
-//			}
-		} 
-		} catch(IOException e) {
+			ois = new ObjectInputStream(
+					new GZIPInputStream(
+					new FileInputStream("Solutions.zip")));
+			
+			mazeSolution = (HashMap<Maze3d, Solution<Position>>) ois.readObject();
+			System.out.println("Cache loaded successfully!");
+			System.out.println(mazeSolution);
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} finally {
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally{
 			try {
-				if(file.exists()) {
-					fis.close();
-					gzipis.close();
-					ois.close();
-				}
+				ois.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		}		
+		
 	}
 	
 	public void loadProperties() {
