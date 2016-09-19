@@ -3,6 +3,7 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -87,6 +88,7 @@ public class MyModel extends Observable implements Model {
 		this.execService = Executors.newFixedThreadPool(20);
 		this.mazeSolution = new HashMap<>();
 		loadProperties();		
+		loadCache();
 	}
 	
 	/**
@@ -298,7 +300,7 @@ public class MyModel extends Observable implements Model {
 			if(future.get()!=null) {
 				notifyObservers("Thread Finished");
 			}
-			saveCache();	
+			saveCache();
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
@@ -365,16 +367,18 @@ public class MyModel extends Observable implements Model {
 			if(!file.exists())
 				file.createNewFile();
 			
-			fos = new FileOutputStream(file,true);
+			fos = new FileOutputStream(file);
 			gzipos = new GZIPOutputStream(fos);
 			oos = new ObjectOutputStream(gzipos);
 			
-			for(Entry<Maze3d, Solution<Position>> e : mazeSolution.entrySet()) {
-				oos.writeObject(e.getKey());
-				oos.flush();
-				oos.writeObject(e.getValue());
-				oos.flush();
-			}
+			oos.writeObject(mazeSolution);
+			
+//			for(Entry<Maze3d, Solution<Position>> e : mazeSolution.entrySet()) {
+//				oos.writeObject(e.getKey());
+//				oos.flush();
+//				oos.writeObject(e.getValue());
+//				oos.flush();
+//			}
 		} catch(IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -385,44 +389,64 @@ public class MyModel extends Observable implements Model {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-			
-//			Iterator<java.util.Map.Entry<Maze3d, Solution<Position>>> it = mazeSolution.entrySet().iterator();
-//			
-//			while(it.hasNext()) {
-//				Map.Entry<Maze3d, Solution<Position>> pair = (Map.Entry<Maze3d, Solution<Position>>) it.next();
-//				out.writeObject(pair.getKey());
-//				out.writeObject(pair.getValue());
-//			}
-//			
-//			out.close();
-//		} catch(IOException ioe) {
-//			ioe.printStackTrace();
-//		}	
+		}	
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	private void loadCache() {
-		Maze3d maze = null;
+		
+		File file = new File("Cache.zip");
+		FileInputStream fis = null;
+		ObjectInputStream ois = null;
+		GZIPInputStream gzipis = null;
+		
+		Maze3d currMaze = null;
+		Solution<Position> currSol = null;
+		
 		try {
-			ObjectInputStream in = new ObjectInputStream(
-					new GZIPInputStream(
-					new FileInputStream("Cache.zip")));
-			while(true){
-				maze = (Maze3d) in.readObject();
-				if(maze==null)
-					break;
+			if(file.exists()) {
+				fis = new FileInputStream(file);
+				gzipis = new GZIPInputStream(fis);
+				ois = new ObjectInputStream(gzipis);
+				System.out.println(mazeSolution);
+				try {
+					mazeSolution = (HashMap<Maze3d, Solution<Position>>) ois.readObject();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+//				try {
+//					do {
+//							currMaze = (Maze3d) ois.readObject();
+//							currSol = (Solution<Position>) ois.readObject();
+//							mazeSolution.put(currMaze, currSol);
+//				} while (currMaze != null);
+//			} catch(EOFException e) {
+//				System.out.println("End of file");
+//			} catch(IOException e) {
+//				e.printStackTrace();
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
+		} 
+		} catch(IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(file.exists()) {
+					fis.close();
+					gzipis.close();
+					ois.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			in.close();
-		} catch(IOException | ClassNotFoundException ioe) {
-			ioe.printStackTrace();
 		}
-
-		// TODO: Populate hash-set..
 	}
 	
 	public void loadProperties() {
-		//Load properties
 			Properties properties = new Properties();
 			FileInputStream xml;
 			
