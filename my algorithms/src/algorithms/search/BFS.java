@@ -34,6 +34,10 @@ public class BFS<T> extends CommonSearcher<T> {
 	 */
 	@Override
 	public Solution<T> search(Searchable<T> s) {
+		
+		if(s==null)
+			return null;
+		
 		State<T> startState = s.getStartState();
 		addToOpenList(startState);
 		State<T> goalState = s.getGoalState();

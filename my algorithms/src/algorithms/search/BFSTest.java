@@ -13,16 +13,28 @@ import algorithms.mazeGenerators.Position;
 public class BFSTest {
 
 	@Test
-	public void testBFS(int floors, int height, int width) {
+	public void testBFS() {
 		BFS<Position> BFSSearcher = new BFS<>();
 		Maze3dGenerator mg = new GrowingTreeGenerator(new LastPositionChooser());
 		
-		Maze3dSearchableAdapter maze = new Maze3dSearchableAdapter(floors,height,width);
-		maze.maze3d = mg.generate(floors,height,width);
+		Maze3dSearchableAdapter maze = null;
+		Solution<Position> BFSsolution;
 		
-		Solution<Position> BFSsolution = BFSSearcher.search(maze);
+		//test 1 - null maze
+		BFSsolution = BFSSearcher.search(maze);
+		assertNull(BFSsolution);
 		
+		//test 2 - small maze
+		maze = new Maze3dSearchableAdapter(1,10,10);
+		maze.maze3d = mg.generate(5,10,10);
+		BFSsolution = BFSSearcher.search(maze);
 		assertNotNull(BFSsolution);
+		
+		//test 3 - large maze
+		maze.maze3d = mg.generate(50,50,50);
+		BFSsolution = BFSSearcher.search(maze);
+		assertNotNull(BFSsolution);
+		
 	}
 
 }
