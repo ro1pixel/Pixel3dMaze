@@ -18,6 +18,7 @@ import presenter.Presenter;
 import presenter.Properties;
 import view.CLI;
 import view.GUIView;
+import view.MazeWindow;
 import view.MyView;
 
 public class Run {
@@ -37,6 +38,9 @@ public class Run {
 //		view.addObserver(presenter);
 //
 //		view.start();
+		
+//		MazeWindow mw = new MazeWindow(500, 500);
+//		mw.run();
 		
 		GUIView gv = new GUIView();
 		MyModel model = new MyModel();

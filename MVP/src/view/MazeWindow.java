@@ -29,7 +29,7 @@ public class MazeWindow extends BasicWindow implements View {
 	Menu fileMenu;
 	Menu helpMenu;
 	MenuItem cascadeFileMenu;
-	MenuItem cascadeHelp;
+	MenuItem cascadeHelpMenu;
 	MenuItem newGameMenuItem;
 	MenuItem loadMazeMenuItem;
 	MenuItem saveMazeMenuItem;
@@ -102,7 +102,7 @@ public class MazeWindow extends BasicWindow implements View {
 	void initWidgets() {
 		initMenu();
 		
-		GridLayout gridLayout = new GridLayout(2, true);
+		GridLayout gridLayout = new GridLayout(2, false);
 		shell.setLayout(gridLayout);
 		shell.setText("The Amazing Maze Game!");
 		
@@ -146,7 +146,25 @@ public class MazeWindow extends BasicWindow implements View {
 		propertiesMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 		propertiesMenuItem.setText("Properties...");
 		
+		importPropertiesMenuItem = new MenuItem(fileMenu, SWT.PUSH);
+		importPropertiesMenuItem.setText("Import Properties");
 		
+		exportPropertiesMenuItem = new MenuItem(fileMenu, SWT.PUSH);
+		exportPropertiesMenuItem.setText("Export Properties");
+		
+		exitMenuItem = new MenuItem(fileMenu, SWT.PUSH);
+		exitMenuItem.setText("Exit");
+		
+		cascadeHelpMenu = new MenuItem(menuBar, SWT.CASCADE);
+		cascadeHelpMenu.setText("Help");
+		
+		helpMenu = new Menu(shell,SWT.DROP_DOWN);
+		cascadeHelpMenu.setMenu(helpMenu);
+		
+		aboutMenuItem = new MenuItem(helpMenu, SWT.PUSH);
+		aboutMenuItem.setText("About");
+		
+		shell.setMenuBar(menuBar);
 	}
 	
 	public void generateMazeSelectionListener(SelectionListener listener) {

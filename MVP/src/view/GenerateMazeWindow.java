@@ -24,7 +24,7 @@ public class GenerateMazeWindow extends BasicWindow {
 	@Override
 	void initWidgets() {
 		shell.setText("Generate Maze");
-		shell.setLayout(new GridLayout(2,true));
+		shell.setLayout(new GridLayout(2,false));
 		
 		Label lblMazeName = new Label(shell, SWT.NONE);
 		lblMazeName.setText("Maze Name: ");
