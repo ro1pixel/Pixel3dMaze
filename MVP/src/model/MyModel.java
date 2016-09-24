@@ -394,7 +394,7 @@ public class MyModel extends Observable implements Model {
 			
 			mazeSolution = (HashMap<Maze3d, Solution<Position>>) ois.readObject();
 			System.out.println("Cache loaded successfully!");
-			System.out.println(mazeSolution);
+			//System.out.println(mazeSolution);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

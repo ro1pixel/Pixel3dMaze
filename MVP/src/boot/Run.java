@@ -17,6 +17,7 @@ import model.MyModel;
 import presenter.Presenter;
 import presenter.Properties;
 import view.CLI;
+import view.GUIView;
 import view.MyView;
 
 public class Run {
@@ -24,18 +25,27 @@ public class Run {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		PrintWriter out = new PrintWriter(System.out);
+//		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+//		PrintWriter out = new PrintWriter(System.out);
+//		
+//		MyView view = new MyView(in,out);
+//		MyModel model = new MyModel();
+//		
+//		Presenter presenter = new Presenter(model, view);
+//		
+//		model.addObserver(presenter);
+//		view.addObserver(presenter);
+//
+//		view.start();
 		
-		MyView view = new MyView(in,out);
+		GUIView gv = new GUIView();
 		MyModel model = new MyModel();
 		
-		Presenter presenter = new Presenter(model, view);
-		
+		Presenter presenter = new Presenter(model, gv);
 		model.addObserver(presenter);
-		view.addObserver(presenter);
-
-		view.start();
+		gv.addObserver(presenter);
+		
+		gv.start();
 	}
 
 }
