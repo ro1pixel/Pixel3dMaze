@@ -16,7 +16,7 @@ public class RunXML {
 
 	public static void main(String[] args) {
 		
-		Properties properties = new Properties("Growing","BFS",6);
+		Properties properties = new Properties("Growing","BFS",6, "Z");
 		FileOutputStream xml;
 		
 		try {

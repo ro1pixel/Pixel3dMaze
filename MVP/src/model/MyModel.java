@@ -75,9 +75,10 @@ public class MyModel extends Observable implements Model {
 	
 	/** The controller. */
 	Controller controller;
-	private String generationType;
-	private String solvingAlgorithm;
-	private int maxThreads;
+	String generationType;
+	String solvingAlgorithm;
+	int maxThreads;
+	String viewStyle;
 
 	/**
 	 * Instantiates a new my model.
@@ -427,5 +428,44 @@ public class MyModel extends Observable implements Model {
 				System.out.println("Error loading properties! :(");
 				e.printStackTrace();
 			}
+	}
+
+	@Override
+	public void saveProperties() {
+		
+		presenter.Properties pro = new presenter.Properties(this.generationType,this.solvingAlgorithm,this.maxThreads,this.viewStyle);
+		Properties properties=new Properties();
+		
+		FileOutputStream xml;
+		
+		try {
+			xml = new FileOutputStream("Properties.xml");
+			JAXB.marshal(properties, xml);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void editProperties(String generationType, String solutionAlgorithm, Integer maxThreads, String viewStyle) {
+		if (generationType!=null && solutionAlgorithm!=null && maxThreads!=null && viewStyle!=null )
+		{
+			if (generationType!=null)
+				this.generationType=generationType;
+			if (solutionAlgorithm!=null)
+				this.solvingAlgorithm=solutionAlgorithm;
+			if (maxThreads!=null)
+				this.execService = Executors.newFixedThreadPool(maxThreads);
+			if(viewStyle!=null)
+				this.viewStyle=viewStyle;
+				
+			saveProperties();
+		}
+		else{
+			setChanged();
+			notifyObservers("Error: the maze name or file name is empty");
+		}
+		
 	}
 }

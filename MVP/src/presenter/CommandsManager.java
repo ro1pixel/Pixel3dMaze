@@ -44,6 +44,9 @@ public class CommandsManager {
 		commands.put("load_maze", new LoadMaze());
 		commands.put("solve", new SolveMaze());
 		commands.put("display_solution", new DisplaySolution());
+		commands.put("load_properties", new loadPropertiesCommand());
+		commands.put("save_properties", new savePropertiesCommand());
+		commands.put("edit_properties", new editPropertiesCommand());
 		commands.put("exit", new ExitCommand());
 		
 		return commands;
@@ -183,6 +186,34 @@ public class CommandsManager {
 			view.displaySolution(model.getSolution(name));
 		}
 		
+	}
+	
+	public class loadPropertiesCommand implements Command{
+		
+		@Override
+		public void doCommand(String[] args) {
+			model.loadProperties();
+		}
+	}
+	
+	public class savePropertiesCommand implements Command{
+		
+		@Override
+		public void doCommand(String[] args) {
+			model.saveProperties();
+		}
+	}
+	
+public class editPropertiesCommand implements Command{
+		
+		@Override
+		public void doCommand(String[] args) {
+			String generationType=args[0];
+			String solvingAlgorithm=args[1];
+			Integer maxThreads=Integer.parseInt(args[2]);
+			String viewStyle=args[3];
+			model.editProperties(generationType, solvingAlgorithm, maxThreads, viewStyle);
+		}
 	}
 	
 	/**

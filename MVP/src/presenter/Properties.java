@@ -19,6 +19,13 @@ public class Properties implements Serializable {
 	/** The max threads. */
 	private int maxThreads;
 	
+	private String viewStyle;
+	
+	public Properties() {
+		this.generationType=null;
+		this.solvingAlgorithm=null;
+		this.viewStyle=null;
+	}	
 	
 	/**
 	 * Instantiates the properties.
@@ -27,11 +34,12 @@ public class Properties implements Serializable {
 	 * @param solvingAlgorithm the solving algorithm
 	 * @param maxThreads the max threads
 	 */
-	public Properties(String generationType, String solvingAlgorithm, int maxThreads) {
+	public Properties(String generationType, String solvingAlgorithm, int maxThreads, String viewStyle) {
 		super();
 		this.generationType = generationType;
 		this.solvingAlgorithm = solvingAlgorithm;
 		this.maxThreads = maxThreads;
+		this.viewStyle = viewStyle;
 	}
 	
 	/**
@@ -43,14 +51,7 @@ public class Properties implements Serializable {
 		this.generationType = p.getGenerationType();
 		this.solvingAlgorithm = p.getSolvingAlgorithm();
 		this.maxThreads = p.getMaxThreads();
-	}
-
-	/**
-	 * Instantiates a new properties.
-	 */
-	public Properties() {
-		this.generationType = null;
-		this.solvingAlgorithm = null;
+		this.viewStyle=p.viewStyle;
 	}
 
 	/**
@@ -106,5 +107,14 @@ public class Properties implements Serializable {
 	public void setMaxThreads(int maxThreads) {
 		this.maxThreads = maxThreads;
 	}
+
+	public String getViewStyle() {
+		return viewStyle;
+	}
+
+	public void setViewStyle(String viewStyle) {
+		this.viewStyle = viewStyle;
+	}
+	
 
 }

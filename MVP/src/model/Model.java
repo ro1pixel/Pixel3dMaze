@@ -82,5 +82,8 @@ public interface Model {
 	 *
 	 * @param args the args
 	 */
+	public void saveProperties();
+	public void loadProperties();
+	public void editProperties(String generationType, String solutionAlgorithm, Integer maxThreads, String viewStyle);
 	void exit(String[] args);
 }

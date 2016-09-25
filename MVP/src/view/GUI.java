@@ -145,7 +145,7 @@ public class GUI extends Observable implements View, Observer {
 				if(folderName != null) {
 					setChanged();
 					notifyObservers("save_properties "+folderName);
-					mazeWindow.displayInfoMessage("Save Properties", "The properties was saved succesfully");
+					//mazeWindow.displayInfoMessage("Save Properties", "The properties was saved succesfully");
 				}				
 			}
 			
