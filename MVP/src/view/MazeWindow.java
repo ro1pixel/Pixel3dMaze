@@ -19,7 +19,7 @@ import presenter.Controller;
 public class MazeWindow extends BasicWindow implements View {
 	
 	String mazeName;
-	MazeDisplay mazeDisplay;
+	Maze2dDisplay mazeDisplay;
 	Maze3d maze;
 	Button generateMazeButton;
 	Button solveMazeButton;
@@ -110,7 +110,7 @@ public class MazeWindow extends BasicWindow implements View {
 		generateMazeButton.setText("Generate Maze");
 		generateMazeButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
 		
-		mazeDisplay = new MazeDisplay(shell,SWT.BORDER);
+		mazeDisplay = new Maze2dDisplay(shell,SWT.BORDER);
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL,SWT.FILL,false,false,1,4));
 		
 		solveMazeButton = new Button(shell, SWT.PUSH);
