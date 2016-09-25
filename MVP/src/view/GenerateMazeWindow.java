@@ -54,7 +54,7 @@ public class GenerateMazeWindow extends BasicWindow {
 		
 		Button btnGenerateMaze = new Button(shell,SWT.PUSH);
 		shell.setDefaultButton(btnGenerateMaze);
-		btnGenerateMaze.setLayoutData(new GridData(SWT.LEFT,SWT.CENTER,true,false,2,1));
+		btnGenerateMaze.setLayoutData(new GridData(SWT.CENTER,SWT.CENTER,true,false,2,1));
 		btnGenerateMaze.setText("Generate!");
 		
 		btnGenerateMaze.addSelectionListener(new SelectionListener() {
@@ -73,10 +73,6 @@ public class GenerateMazeWindow extends BasicWindow {
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});
 		
-	}
-	
-	public void open() {
-		shell.open();
 	}
 
 	public String getName() {

@@ -5,11 +5,14 @@ import java.io.File;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.internal.win32.INITCOMMONCONTROLSEX;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -43,7 +46,6 @@ public class MazeWindow extends BasicWindow {
 	MenuItem aboutMenuItem;
 	MenuItem exitMenuItem;
 	
-	
 	public MazeWindow(int width, int height) {
 		super(width,height);
 	}
@@ -75,7 +77,6 @@ public class MazeWindow extends BasicWindow {
 		resetGameButton.setText("Reset Game");
 		resetGameButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
 		
-		//initListeners();
 	}
 
 	private void initMenu() {
@@ -167,6 +168,10 @@ public class MazeWindow extends BasicWindow {
 	
 	public void exit() {
 		shell.dispose();
+	}
+	
+	public void redraw() {
+		shell.redraw();
 	}
 	
 

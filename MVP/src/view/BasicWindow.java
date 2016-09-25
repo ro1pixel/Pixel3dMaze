@@ -13,7 +13,7 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	Display display;
 	Shell shell;
-	boolean ownDisplay = false;
+	boolean mainWindow = false;
 	
 
 	public BasicWindow() {
@@ -25,7 +25,7 @@ public abstract class BasicWindow extends Observable implements Runnable {
 		display = Display.getCurrent();
  		if(display == null) {
  			display = new Display();
- 			ownDisplay = true;
+ 			mainWindow = true;
  		}
 		shell = new Shell(display);
 		shell.setSize(width, height);
@@ -37,19 +37,16 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	@Override
 	public void run() {
 		shell.open();
-		runEventLoop();		
+		while (!shell.isDisposed()) {
+	        if (!display.readAndDispatch()) {
+	                display.sleep();
+	         }
+		}
+		
+		if(mainWindow)
+			display.dispose();
 	}
 	
-	public void runEventLoop() {
-		while (!shell.isDisposed()) {
-		        if (!display.readAndDispatch())
-		         {
-		                display.sleep();
-		         }
-		}
-
-		display.dispose();
-	}
 	
 	public void displayMessage(int iconNum,String title,String message)
 	{
@@ -100,5 +97,10 @@ public abstract class BasicWindow extends Observable implements Runnable {
 		else
 			return false;
 	}
+
+	public Shell getShell() {
+		return shell;
+	}
+	
 
 }

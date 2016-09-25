@@ -26,7 +26,7 @@ public class GUI extends Observable implements View, Observer {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				GenerateMazeWindow gmw = new GenerateMazeWindow(300, 200);
+				GenerateMazeWindow gmw = new GenerateMazeWindow(200, 180);
 				gmw.run();
 				mazeName = gmw.getName();
 				setChanged();
@@ -196,8 +196,8 @@ public class GUI extends Observable implements View, Observer {
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		// TODO Auto-generated method stub
-
+		setChanged();
+		notifyObservers("display " + mazeName);
 	}
 
 	@Override
