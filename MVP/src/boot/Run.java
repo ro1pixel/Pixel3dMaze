@@ -39,17 +39,17 @@ public class Run {
 //
 //		view.start();
 		
-		MazeWindow mw = new MazeWindow(500, 500);
-		mw.run();
+//		MazeWindow mw = new MazeWindow(500, 500);
+//		mw.run();
 		
-//		GUIView gv = new GUIView();
-//		MyModel model = new MyModel();
-//		
-//		Presenter presenter = new Presenter(model, gv);
-//		model.addObserver(presenter);
-//		gv.addObserver(presenter);
-//		
-//		gv.start();
+		GUIView gv = new GUIView();
+		MyModel model = new MyModel();
+		
+		Presenter presenter = new Presenter(model, gv);
+		model.addObserver(presenter);
+		gv.addObserver(presenter);
+		
+		gv.start();
 	}
 
 }
