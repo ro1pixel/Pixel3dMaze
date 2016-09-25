@@ -18,6 +18,7 @@ public class PropertiesWindow extends BasicWindow {
 	
 	public PropertiesWindow(int width,int height) {
 		super(width,height);
+		initWidgets();
 	}
 
 	

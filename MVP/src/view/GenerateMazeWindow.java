@@ -19,6 +19,7 @@ public class GenerateMazeWindow extends BasicWindow {
 	
 	public GenerateMazeWindow(int width,int height) {
 		super(width,height);
+		initWidgets();
 	}
 	
 	@Override

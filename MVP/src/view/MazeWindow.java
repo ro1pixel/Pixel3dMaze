@@ -42,6 +42,7 @@ public class MazeWindow extends BasicWindow implements View {
 	
 	public MazeWindow(int width, int height) {
 		super(width,height);
+		initWidgets();
 	}
 
 	@Override

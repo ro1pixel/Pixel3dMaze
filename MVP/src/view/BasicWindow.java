@@ -30,7 +30,7 @@ public abstract class BasicWindow extends Observable implements Runnable {
 
 	@Override
 	public void run() {
-		initWidgets();
+		//initWidgets();
 		shell.open();
 		runEventLoop();		
 	}
