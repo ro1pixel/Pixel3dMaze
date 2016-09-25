@@ -3,20 +3,24 @@ package view;
 import java.io.File;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.internal.win32.INITCOMMONCONTROLSEX;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.MessageBox;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import presenter.Controller;
 
-public class MazeWindow extends BasicWindow implements View {
+public class MazeWindow extends BasicWindow {
 	
 	String mazeName;
 	Maze2dDisplay mazeDisplay;
@@ -42,65 +46,10 @@ public class MazeWindow extends BasicWindow implements View {
 	
 	public MazeWindow(int width, int height) {
 		super(width,height);
-		initWidgets();
 	}
 
 	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifyMazeIsReady(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void displayMaze(Maze3d maze) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void displayCrossSection(Maze3d maze, int z, int y, int x) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void displaySolution(Solution<Position> solution) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifySolutionIsReady(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void displayFiles(File[] files) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setController(Controller controller) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void printToScreen(String string) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	void initWidgets() {
+	public void initWidgets() {
 		initMenu();
 		
 		GridLayout gridLayout = new GridLayout(2, false);
@@ -125,6 +74,8 @@ public class MazeWindow extends BasicWindow implements View {
 		resetGameButton = new Button(shell, SWT.PUSH);
 		resetGameButton.setText("Reset Game");
 		resetGameButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
+		
+		//initListeners();
 	}
 
 	private void initMenu() {
@@ -217,12 +168,7 @@ public class MazeWindow extends BasicWindow implements View {
 	public void exit() {
 		shell.dispose();
 	}
-
-
-
-
-
-
+	
 
 
 }

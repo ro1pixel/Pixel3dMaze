@@ -13,13 +13,13 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import presenter.Controller;
 
-public class GUIView extends Observable implements View, Observer {
+public class GUI extends Observable implements View, Observer {
 	
 	MazeWindow mazeWindow;
 	String mazeName;
 	Maze3d maze;
 	
-	public GUIView() {
+	public GUI() {
 		mazeWindow = new MazeWindow(500, 500);
 		
 		mazeWindow.generateMazeSelectionListener(new SelectionListener() {
@@ -109,7 +109,7 @@ public class GUIView extends Observable implements View, Observer {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				PropertiesWindow pw = new PropertiesWindow(300,210);			
+				PropertiesWindow pw = new PropertiesWindow(300,200);			
 				pw.run();
 				setChanged();
 				notifyObservers("edit_properties " +pw.getGenerateMaze()+ " "+pw.getSolutionAlgorithm()+ " " +

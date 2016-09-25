@@ -18,12 +18,11 @@ public class PropertiesWindow extends BasicWindow {
 	
 	public PropertiesWindow(int width,int height) {
 		super(width,height);
-		initWidgets();
 	}
 
 	
 	@Override
-	void initWidgets() {
+	public void initWidgets() {
 		shell.setText("Properties");
 		shell.setLayout(new GridLayout(2,false));
 		

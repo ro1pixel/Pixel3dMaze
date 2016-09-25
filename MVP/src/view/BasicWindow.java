@@ -13,6 +13,7 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	Display display;
 	Shell shell;
+	boolean ownDisplay = false;
 	
 
 	public BasicWindow() {
@@ -21,16 +22,20 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	}
 	
 	public BasicWindow(int width, int height) {
-		display = new Display();
+		display = Display.getCurrent();
+ 		if(display == null) {
+ 			display = new Display();
+ 			ownDisplay = true;
+ 		}
 		shell = new Shell(display);
 		shell.setSize(width, height);
+		initWidgets();
 	}
 
-	abstract void initWidgets();
+	public abstract void initWidgets();
 
 	@Override
 	public void run() {
-		//initWidgets();
 		shell.open();
 		runEventLoop();		
 	}
