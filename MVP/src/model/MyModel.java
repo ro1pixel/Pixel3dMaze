@@ -440,7 +440,7 @@ public class MyModel extends Observable implements Model {
 		
 		try {
 			xml = new FileOutputStream("Properties.xml");
-			JAXB.marshal(properties, xml);
+			JAXB.marshal(pro, xml);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -455,8 +455,10 @@ public class MyModel extends Observable implements Model {
 				this.generationType=generationType;
 			if (solutionAlgorithm!=null)
 				this.solvingAlgorithm=solutionAlgorithm;
-			if (maxThreads!=null)
+			if (maxThreads!=null) {
+				this.maxThreads = maxThreads;
 				this.execService = Executors.newFixedThreadPool(maxThreads);
+			}
 			if(viewStyle!=null)
 				this.viewStyle=viewStyle;
 				

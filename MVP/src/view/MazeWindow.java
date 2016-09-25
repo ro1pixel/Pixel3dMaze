@@ -174,6 +174,11 @@ public class MazeWindow extends BasicWindow {
 		shell.redraw();
 	}
 	
+	public void setMaze(Maze3d maze) {
+		mazeDisplay.setMaze(maze);
+		mazeDisplay.redraw();
+	}
+	
 
 
 }

@@ -33,12 +33,6 @@ public class Run {
 		gv.addObserver(presenter);
 		
 		gv.start();
-		
-//		MazeWindow view = new MazeWindow(500,500);
-//		Presenter presenter = new Presenter(model, view);
-//		model.addObserver(presenter);
-//		view.addObserver(presenter);
-//		view.start();
 	}
 
 }

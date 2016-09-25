@@ -11,6 +11,7 @@ import org.eclipse.swt.events.SelectionListener;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import model.MyModel;
 import presenter.Controller;
 
 public class GUI extends Observable implements View, Observer {
@@ -30,8 +31,10 @@ public class GUI extends Observable implements View, Observer {
 				gmw.run();
 				mazeName = gmw.getName();
 				setChanged();
-				notifyObservers("generate_maze " +mazeName + " "+ gmw.getFloors()+ " " + gmw.getHeight()+ " "+ gmw.getWidth());
-				mazeWindow.displayInfoMessage("Success", "Maze has been generated Successfully");
+				notifyObservers("generate_maze " +mazeName + " "+ gmw.getFloors()+ " " + gmw.getHeight()+ " "+ gmw.getWidth()); 
+				//mazeWindow.displayInfoMessage("Success", "Maze has been generated Successfully");
+				setChanged();
+				notifyObservers("display " + mazeName);
 			}
 			
 			@Override
@@ -128,7 +131,7 @@ public class GUI extends Observable implements View, Observer {
 				String fileName = mazeWindow.displayFileDialog(SWT.SAVE, "Save properties", new String[] { "*.xml" }, "C:\\");
 				if(fileName != null) {
 					setChanged();
-					notifyObservers("load_properties "+fileName);
+					notifyObservers("load_properties");
 					mazeWindow.displayInfoMessage("Load Properties", "The properties was loaded succesfully");
 				}				
 			}
@@ -144,7 +147,7 @@ public class GUI extends Observable implements View, Observer {
 				String folderName = mazeWindow.displayDirectoryDialog(SWT.OPEN, "select folder", "c:\\");
 				if(folderName != null) {
 					setChanged();
-					notifyObservers("save_properties "+folderName);
+					notifyObservers("save_properties");
 					//mazeWindow.displayInfoMessage("Save Properties", "The properties was saved succesfully");
 				}				
 			}
@@ -196,8 +199,7 @@ public class GUI extends Observable implements View, Observer {
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		setChanged();
-		notifyObservers("display " + mazeName);
+		mazeWindow.setMaze(maze);
 	}
 
 	@Override

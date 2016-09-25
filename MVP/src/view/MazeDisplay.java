@@ -7,8 +7,6 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
 public abstract class MazeDisplay extends Canvas {
-	public static final int PATH = 0;
-	public static final int WALL = 1;
 	String viewPlane;
 	boolean solved;
 	Maze3d maze;
@@ -34,7 +32,7 @@ public abstract class MazeDisplay extends Canvas {
 		redraw();
 	}
 	
-	public void setSolced(boolean solved) {
+	public void setSolved(boolean solved) {
 		this.solved = solved;
 		redraw();
 	}

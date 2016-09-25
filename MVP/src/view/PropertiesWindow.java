@@ -6,6 +6,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
@@ -29,14 +30,18 @@ public class PropertiesWindow extends BasicWindow {
 		Label lblGenerateMaze = new Label(shell, SWT.NONE);
 		lblGenerateMaze.setText("Generation Type: ");
 		
-		Text txtGenerateMaze = new Text(shell, SWT.BORDER);
-		txtGenerateMaze.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		final Combo generationTypeCombo = new Combo(shell,SWT.READ_ONLY);
+		generationTypeCombo.setBounds(50, 50, 150, 65);
+		String generationTypeItems[] = {"Growing"};
+		generationTypeCombo.setItems(generationTypeItems);
 		
 		Label lblSolutionAlgorithm = new Label(shell, SWT.NONE);
 		lblSolutionAlgorithm.setText("Solution Algorithm: ");
 		
-		Text txtSolutionAlgorithm = new Text(shell, SWT.BORDER);
-		txtSolutionAlgorithm.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		final Combo solAlgCombo = new Combo(shell,SWT.READ_ONLY);
+		solAlgCombo.setBounds(50, 50, 150, 65);
+		String solAlgItems[] = {"BFS", "DFS"};
+		solAlgCombo.setItems(solAlgItems);
 		
 		Label lblMaxThreads = new Label(shell, SWT.NONE);
 		lblMaxThreads.setText("Max Threads: ");
@@ -59,8 +64,8 @@ public class PropertiesWindow extends BasicWindow {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {				
-				generateMaze=txtGenerateMaze.getText();
-				solutionAlgorithm=txtSolutionAlgorithm.getText();
+				generateMaze=generationTypeCombo.getText();
+				solutionAlgorithm=solAlgCombo.getText();
 				maxThreads = Integer.parseInt(txtNumThreads.getText());
 				viewStyle=txtViewStyle.getText();
 				displayInfoMessage("Info","The Properties are:"+"\nGenerateType: "+generateMaze+"\nSolution Algorithm: "+solutionAlgorithm
