@@ -166,4 +166,10 @@ public class MyView extends Observable implements View, Observer {
 		}	
 	}
 
+	@Override
+	public void displayCrossSection(int[][] maze2d) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

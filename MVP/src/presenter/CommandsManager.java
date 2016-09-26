@@ -113,10 +113,9 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
-			int z = Integer.parseInt(args[1]);
-			int y = Integer.parseInt(args[2]);
-			int x = Integer.parseInt(args[3]);
-			view.displayCrossSection(model.getMaze(name),z,y,x);
+			String axis = args[1];
+			Integer floors = Integer.parseInt(args[2]);
+			view.displayCrossSection(model.getCrossSection(name,axis,floors));
 		}
 		
 	}

@@ -470,4 +470,37 @@ public class MyModel extends Observable implements Model {
 		}
 		
 	}
+	
+	/**
+	 * get Cross Section
+	 * axle index maze name
+	 */
+	public int[][] getCrossSection(String name, String axis, Integer floor){
+		if (axis!=null && floor!=null && name!=null){
+			Maze3d maze=this.savedMaze.get(name);
+			if (maze!=null)
+				if(axis.toUpperCase().equals("X"))
+					return maze.getCrossSectionByX(floor);
+				else if(axis.toUpperCase().equals("Y"))
+					return maze.getCrossSectionByY(floor);
+				else if(axis.toUpperCase().equals("Z"))
+					return maze.getCrossSectionByZ(floor);
+				else{
+					setChanged();
+					notifyObservers("ERROR: the axle dosen't exist");
+					return null;
+				}
+			else{
+				setChanged();
+				notifyObservers("ERROR: the maze does not exist!");
+				return null;
+			}
+		}
+		else{
+			setChanged();
+			notifyObservers("ERROR: the axis of the floor or the maze name is empty!");
+			return null;
+		}
+		
+	}
 }

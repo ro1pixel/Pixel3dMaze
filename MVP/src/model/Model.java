@@ -86,4 +86,5 @@ public interface Model {
 	public void loadProperties();
 	public void editProperties(String generationType, String solutionAlgorithm, Integer maxThreads, String viewStyle);
 	void exit(String[] args);
+	public int[][] getCrossSection(String name, String axis, Integer floor);
 }

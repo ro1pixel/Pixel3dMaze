@@ -24,7 +24,7 @@ public abstract class MazeDisplay extends Canvas {
 	
 	public void setCharacterPosition(Position position) {
 		characterPosition = position;
-		redraw();
+		//redraw();
 	}
 	
 	public void setViewPlane(String plane) {
@@ -36,5 +36,39 @@ public abstract class MazeDisplay extends Canvas {
 		this.solved = solved;
 		redraw();
 	}
+	
+	/**
+	 * move character one step up
+	 */
+	public abstract void moveUp();
+	/**
+	 * move character one step down
+	 */
+	public abstract  void moveDown();
+	/**
+	 * move character one step left
+	 */
+	public abstract  void moveLeft();
+	/**
+	 * move character one step Right
+	 */
+	public  abstract void moveRight();
+	/**
+	 * move character one step floor up
+	 */
+	public  abstract void movePageUp();
+	/**
+	 * move character one step floor down
+	 */
+	public  abstract void movePageDown();
+	/**
+	 * move character to start position of the maze
+	 */
+	public abstract void moveStart();
+	/**
+	 * move character to new position
+	 * @param p position to move to
+	 */
+	public abstract void move(Position p);
 	
 }

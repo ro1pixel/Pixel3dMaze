@@ -3,6 +3,7 @@ package view;
 import java.io.File;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -63,7 +64,7 @@ public class MazeWindow extends BasicWindow {
 		generateMazeButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
 		
 		mazeDisplay = new Maze2dDisplay(shell,SWT.BORDER);
-		mazeDisplay.setLayoutData(new GridData(SWT.FILL,SWT.FILL,false,false,1,4));
+		mazeDisplay.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true,1,4));
 		
 		solveMazeButton = new Button(shell, SWT.PUSH);
 		solveMazeButton.setText("Solve Maze");
@@ -118,6 +119,10 @@ public class MazeWindow extends BasicWindow {
 		aboutMenuItem.setText("About");
 		
 		shell.setMenuBar(menuBar);
+	}
+	
+	public void generateKeyListener(KeyAdapter listener) {
+		mazeDisplay.addKeyListener(listener);
 	}
 	
 	public void generateMazeSelectionListener(SelectionListener listener) {
@@ -177,6 +182,10 @@ public class MazeWindow extends BasicWindow {
 	public void setMaze(Maze3d maze) {
 		mazeDisplay.setMaze(maze);
 		mazeDisplay.redraw();
+	}
+
+	public Maze2dDisplay getMazeDisplay() {
+		return mazeDisplay;
 	}
 	
 

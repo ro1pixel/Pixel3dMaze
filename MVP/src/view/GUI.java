@@ -5,6 +5,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
@@ -32,7 +34,6 @@ public class GUI extends Observable implements View, Observer {
 				mazeName = gmw.getName();
 				setChanged();
 				notifyObservers("generate_maze " +mazeName + " "+ gmw.getFloors()+ " " + gmw.getHeight()+ " "+ gmw.getWidth()); 
-				//mazeWindow.displayInfoMessage("Success", "Maze has been generated Successfully");
 				setChanged();
 				notifyObservers("display " + mazeName);
 			}
@@ -182,6 +183,33 @@ public class GUI extends Observable implements View, Observer {
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});
+		
+		mazeWindow.generateKeyListener(new KeyAdapter() {
+			 public void keyPressed(KeyEvent e) {
+						switch(e.keyCode) {
+							case SWT.ARROW_LEFT:
+								getMazeWindow().getMazeDisplay().moveLeft();
+								break;
+							case SWT.ARROW_RIGHT:
+								getMazeWindow().getMazeDisplay().moveRight();
+								break;
+							/*case SWT.ARROW_UP:
+								getMazeWindow().getMazeDisplay().moveBackward();
+								break;
+							case SWT.ARROW_DOWN:
+								getMazeWindow().getMazeDisplay().moveForward();
+								break;*/
+							case SWT.PAGE_UP:
+								getMazeWindow().getMazeDisplay().moveUp();
+								break;
+							case SWT.PAGE_DOWN:
+								getMazeWindow().getMazeDisplay().moveDown();
+								break;
+						}
+					
+			 }
+		
+		 });
 			
 	}
 
@@ -198,13 +226,22 @@ public class GUI extends Observable implements View, Observer {
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		mazeWindow.setMaze(maze);
+		if(maze!=null) {
+			setChanged();
+			notifyObservers("display_cross_section " + mazeName + " " + "X " +  maze.getStartPosition().getZ());
+			mazeWindow.getMazeDisplay().setMaze(maze);
+			mazeWindow.displayInfoMessage("Maze", "Maze created");
+		}
 	}
 
 	@Override
 	public void displayCrossSection(Maze3d maze, int z, int y, int x) {
-		// TODO Auto-generated method stub
-
+		
+	}
+	
+	@Override
+	public void displayCrossSection(int[][] maze2d) {
+		this.mazeWindow.getMazeDisplay().setMazeData(maze2d);
 	}
 
 	@Override
