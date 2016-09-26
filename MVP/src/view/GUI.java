@@ -188,7 +188,6 @@ public class GUI extends Observable implements View, Observer {
 	@Override
 	public void start() {
 		mazeWindow.run();
-
 	}
 
 	@Override
