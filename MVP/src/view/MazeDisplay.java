@@ -10,7 +10,8 @@ public abstract class MazeDisplay extends Canvas {
 	String viewPlane;
 	boolean solved;
 	Maze3d maze;
-	Position characterPosition;
+	int[][][] array3d;
+	Position currentPosition;
 	
 	public MazeDisplay(Composite parent, int style) {
 		super(parent,style);
@@ -19,12 +20,10 @@ public abstract class MazeDisplay extends Canvas {
 
 	public void setMaze(Maze3d maze) {
 		this.maze = maze;
-		setCharacterPosition(characterPosition);
-	}
-	
-	public void setCharacterPosition(Position position) {
-		characterPosition = position;
-		//redraw();
+		if(maze!=null) {
+			array3d = maze.getArray3d();
+			currentPosition = maze.getStartPosition();
+		}
 	}
 	
 	public void setViewPlane(String plane) {
@@ -56,11 +55,11 @@ public abstract class MazeDisplay extends Canvas {
 	/**
 	 * move character one step floor up
 	 */
-	public  abstract void movePageUp();
+	public  abstract void moveFloorUp();
 	/**
 	 * move character one step floor down
 	 */
-	public  abstract void movePageDown();
+	public  abstract void moveFloorDown();
 	/**
 	 * move character to start position of the maze
 	 */

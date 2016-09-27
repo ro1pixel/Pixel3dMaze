@@ -33,7 +33,7 @@ public class GUI extends Observable implements View, Observer {
 				gmw.run();
 				mazeName = gmw.getName();
 				setChanged();
-				notifyObservers("generate_maze " +mazeName + " "+ gmw.getFloors()+ " " + gmw.getHeight()+ " "+ gmw.getWidth()); 
+				notifyObservers("generate_maze " +mazeName + " "+ gmw.getFloors()+ " " + gmw.getHeight()+ " "+ gmw.getWidth());
 				setChanged();
 				notifyObservers("display " + mazeName);
 			}
@@ -193,17 +193,17 @@ public class GUI extends Observable implements View, Observer {
 							case SWT.ARROW_RIGHT:
 								getMazeWindow().getMazeDisplay().moveRight();
 								break;
-							/*case SWT.ARROW_UP:
-								getMazeWindow().getMazeDisplay().moveBackward();
-								break;
-							case SWT.ARROW_DOWN:
-								getMazeWindow().getMazeDisplay().moveForward();
-								break;*/
-							case SWT.PAGE_UP:
+							case SWT.ARROW_UP:
 								getMazeWindow().getMazeDisplay().moveUp();
 								break;
-							case SWT.PAGE_DOWN:
+							case SWT.ARROW_DOWN:
 								getMazeWindow().getMazeDisplay().moveDown();
+								break;
+							case SWT.PAGE_UP:
+								getMazeWindow().getMazeDisplay().moveFloorUp();
+								break;
+							case SWT.PAGE_DOWN:
+								getMazeWindow().getMazeDisplay().moveFloorDown();
 								break;
 						}
 					
@@ -228,9 +228,9 @@ public class GUI extends Observable implements View, Observer {
 	public void displayMaze(Maze3d maze) {
 		if(maze!=null) {
 			setChanged();
-			notifyObservers("display_cross_section " + mazeName + " " + "X " +  maze.getStartPosition().getZ());
+			notifyObservers("display_cross_section " + mazeName + " " + "Z " +  maze.getStartPosition().getZ());
 			mazeWindow.getMazeDisplay().setMaze(maze);
-			mazeWindow.displayInfoMessage("Maze", "Maze created");
+			//mazeWindow.displayInfoMessage("Maze", "Maze created");
 		}
 	}
 

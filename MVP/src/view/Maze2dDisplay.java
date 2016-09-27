@@ -6,6 +6,7 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 
 import algorithms.mazeGenerators.Position;
 
@@ -18,9 +19,7 @@ public class Maze2dDisplay extends MazeDisplay {
 	Image characterImage;
 	Image wallImage;
 	int[][] array2d;
-	
-	Position charachterPosition;
-	
+		
 	public Maze2dDisplay(Composite parent, int style) {
 		super(parent,style);
 		
@@ -50,30 +49,32 @@ public class Maze2dDisplay extends MazeDisplay {
 				        	  e.gc.drawImage(wallImage, 0, 0, wallImage.getBounds().width, wallImage.getBounds().height, x, y, w, h);
 				      }
 				   }
-				   setCharacterPosition(maze.getStartPosition());
 				   setStart(maze.getStartPosition());
 				   setGoal(maze.getGoalPosition());
-				   e.gc.drawImage(startImage, 0, 0, startImage.getBounds().width,startImage.getBounds().height, start.getY()*w, start.getZ()*h,w,h);
-				   e.gc.drawImage(goalImage, 0, 0, goalImage.getBounds().width,goalImage.getBounds().height,goal.getY()*w,goal.getZ()*h,w,h);
+				   e.gc.drawImage(startImage, 0, 0, startImage.getBounds().width,startImage.getBounds().height, start.getX()*w, start.getY()*h,w,h);
+				   if(currentPosition.getZ() == goal.getZ())
+					   e.gc.drawImage(goalImage, 0, 0, goalImage.getBounds().width,goalImage.getBounds().height,goal.getX()*w,goal.getY()*h,w,h);
+//				   if(currentPosition == null)
+//					   currentPosition = start;
+				   printCharacter(e, currentPosition);
+
 				}
 			}
 		});
 	}
 	
-	public void printCharacter(PaintEvent e,Position characterP)
-	{
+	public void printCharacter(PaintEvent e,Position charPos) {
 		int width=getSize().x;
 		int height=getSize().y;
 
 	   int w=width/array2d[0].length;
 	   int h=height/array2d.length;
-		e.gc.drawImage(characterImage, 0, 0, goalImage.getBounds().width,goalImage.getBounds().height,characterP.getY()*w,characterP.getZ()*h,w,h);
+	   e.gc.drawImage(characterImage, 0, 0, goalImage.getBounds().width, goalImage.getBounds().width, charPos.getX()*w, charPos.getY()*h, w, h);
 	}
 	
 	public void setMazeData(int[][] array2d) {
 		this.array2d = array2d;
-		try
-		{
+		try {
 			getDisplay().syncExec(new Runnable() {					
 
 				@Override
@@ -90,44 +91,86 @@ public class Maze2dDisplay extends MazeDisplay {
 
 	@Override
 	public void moveUp() {
-		// TODO Auto-generated method stub
-		
+		if(currentPosition.getY() > 0) {
+			if(array3d[currentPosition.getZ()][currentPosition.getY() - 1][currentPosition.getX()] == 0) {
+				currentPosition.setY(currentPosition.getY() - 1);
+				if(currentPosition == goal) {
+					//TODO win!
+				}
+				redraw();		
+			}
+		}
 	}
 
 	@Override
 	public void moveDown() {
-		// TODO Auto-generated method stub
-		
+		if(currentPosition.getY() < array3d[0].length-1) {
+			if(array3d[currentPosition.getZ()][currentPosition.getY() + 1][currentPosition.getX()] == 0) {
+				currentPosition.setY(currentPosition.getY() + 1);
+				if(currentPosition == goal) {
+					//TODO win!
+				}
+				redraw();
+			}
+		}	
 	}
 
 	@Override
 	public void moveLeft() {
-		// TODO Auto-generated method stub
+		if(currentPosition.getX() > 0) {
+			if(array3d[currentPosition.getZ()][currentPosition.getY()][currentPosition.getX() - 1] == 0) {
+				currentPosition.setX(currentPosition.getX() - 1);
+				if(currentPosition == goal) {
+					//TODO win!
+				}
+				redraw();
+			}
+		}
 		
 	}
 
 	@Override
 	public void moveRight() {
-		// TODO Auto-generated method stub
-		
+		if(currentPosition.getX() < array3d[0][0].length-1) {
+			if(array3d[currentPosition.getZ()][currentPosition.getY()][currentPosition.getX() + 1] == 0) {
+				currentPosition.setX(currentPosition.getX() + 1);
+				if(currentPosition == goal) {
+					//TODO win!
+				}
+				redraw();
+			}
+		}		
 	}
 
 	@Override
-	public void movePageUp() {
-		// TODO Auto-generated method stub
-		
+	public void moveFloorUp() {
+		if(currentPosition.getZ() < array3d.length-1) {
+			if(array3d[currentPosition.getZ() + 1][currentPosition.getY()][currentPosition.getX()] == 0) {
+				currentPosition.setZ(currentPosition.getZ() + 1);
+				if(currentPosition == goal) {
+					//TODO win!
+				}
+				redraw();
+			}
+		}		
 	}
 
 	@Override
-	public void movePageDown() {
-		// TODO Auto-generated method stub
-		
+	public void moveFloorDown() {
+		if(currentPosition.getZ() > 0) {
+			if(array3d[currentPosition.getZ() - 1][currentPosition.getY()][currentPosition.getX()] == 0) {
+				currentPosition.setZ(currentPosition.getZ() - 1);
+				if(currentPosition == goal) {
+					//TODO win!
+				}
+				redraw();
+			}
+		}			
 	}
 
 	@Override
 	public void moveStart() {
-		// TODO Auto-generated method stub
-		
+		currentPosition = start;		
 	}
 
 	@Override
@@ -150,7 +193,6 @@ public class Maze2dDisplay extends MazeDisplay {
 
 	public void setGoal(Position goal) {
 		this.goal = goal;
-	}
-	
+	}	
 	
 }
