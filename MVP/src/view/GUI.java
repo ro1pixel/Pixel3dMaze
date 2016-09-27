@@ -48,6 +48,8 @@ public class GUI extends Observable implements View, Observer {
 			public void widgetSelected(SelectionEvent arg0) {
 				setChanged();
 				notifyObservers("solve " + mazeName);
+				setChanged();
+				notifyObservers("display_solution " + mazeName);
 			}
 			
 			@Override
@@ -69,8 +71,7 @@ public class GUI extends Observable implements View, Observer {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				Position start = maze.getStartPosition();
-				//TODO finish
+				mazeWindow.mazeDisplay.moveStart();
 			}
 			
 			@Override
@@ -246,8 +247,7 @@ public class GUI extends Observable implements View, Observer {
 
 	@Override
 	public void displaySolution(Solution<Position> solution) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
