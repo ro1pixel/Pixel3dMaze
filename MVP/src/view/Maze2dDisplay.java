@@ -13,6 +13,7 @@ import algorithms.mazeGenerators.Position;
 public class Maze2dDisplay extends MazeDisplay {	
 	Position start;
 	Position goal;
+	boolean resetGame;
 	
 	Image startImage;
 	Image goalImage;
@@ -54,6 +55,7 @@ public class Maze2dDisplay extends MazeDisplay {
 				   setStart(maze.getStartPosition());
 				   setGoal(maze.getGoalPosition());
 				   e.gc.drawImage(startImage, 0, 0, startImage.getBounds().width,startImage.getBounds().height, start.getX()*w, start.getY()*h,w,h);
+				   
 				   if(currentPosition.getZ() == goal.getZ())
 					   e.gc.drawImage(goalImage, 0, 0, goalImage.getBounds().width,goalImage.getBounds().height,goal.getX()*w,goal.getY()*h,w,h);
 				   
@@ -62,6 +64,11 @@ public class Maze2dDisplay extends MazeDisplay {
 						   e.gc.drawImage(winImage, 0, 0, winImage.getBounds().width,winImage.getBounds().height,0,0,width,height);
 						   characterImage = winImage;
 						}
+					if(resetGame) {
+						resetGame = false;
+						currentPosition = start;
+						redraw();
+					}
 				   printCharacter(e, currentPosition);
 
 				}
@@ -160,10 +167,12 @@ public class Maze2dDisplay extends MazeDisplay {
 
 	@Override
 	public void moveStart() {
-		currentPosition.setX(start.getX());
-		currentPosition.setY(start.getY());
-		currentPosition.setZ(start.getZ());
+//		currentPosition.setX(start.getX());
+//		currentPosition.setY(start.getY());
+//		currentPosition.setZ(start.getZ());
+		resetGame = true;
 		redraw();
+
 	}
 
 	@Override
