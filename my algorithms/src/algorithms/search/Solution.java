@@ -26,6 +26,10 @@ public class Solution<T> implements Serializable {
 	public Solution() {
 	}
 	
+	public Solution(LinkedList<State<T>> path) {
+		this.path = path;
+	}
+	
 	/**
 	 * Gets the path.
 	 *

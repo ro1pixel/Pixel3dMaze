@@ -15,6 +15,9 @@ public abstract class MazeDisplay extends Canvas {
 	/** The view plane. */
 	String viewPlane;
 	
+	/** Did the player win. */
+	boolean winner;
+	
 	/** The solved. */
 	boolean solved;
 	
@@ -46,6 +49,7 @@ public abstract class MazeDisplay extends Canvas {
 	public void setMaze(Maze3d maze) {
 		this.maze = maze;
 		if(maze!=null) {
+			winner = false;
 			array3d = maze.getArray3d();
             currentPosition = new Position(maze.getStartPosition());
 		}

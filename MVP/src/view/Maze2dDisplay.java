@@ -1,5 +1,7 @@
 package view;
 
+import java.util.LinkedList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -11,6 +13,7 @@ import org.eclipse.swt.widgets.Event;
 
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import algorithms.search.State;
 
 /**
  * The Class Maze2dDisplay.
@@ -25,9 +28,6 @@ public class Maze2dDisplay extends MazeDisplay {
 	
 	/** The solve. */
 	Thread solve;
-	
-	/** The winner. */
-	boolean winner;
 
 	/** The start image. */
 	Image startImage;
@@ -55,7 +55,7 @@ public class Maze2dDisplay extends MazeDisplay {
 	 */
 	public Maze2dDisplay(Composite parent, int style) {
 		super(parent, style);
-
+		
 		startImage = new Image(getDisplay(), "./resources/start.jpg");
 		goalImage = new Image(getDisplay(), "./resources/goal.jpg");
 		characterImage = new Image(getDisplay(), "./resources/character.jpg");
@@ -293,6 +293,7 @@ public class Maze2dDisplay extends MazeDisplay {
 	 * @param solution the solution
 	 */
 	public void solveMaze(Solution<Position> solution) {
+		LinkedList<State<Position>> currPath = new LinkedList<>(solution.getPath());
 		new Thread(new Runnable() {
 			
 			@Override
@@ -304,7 +305,7 @@ public class Maze2dDisplay extends MazeDisplay {
 						@Override
 						public void run() {
 							if(!currentPosition.equals(goal)) {
-								currentPosition = solution.getPath().pop().getValue();
+								currentPosition = currPath.pop().getValue();
 								move(currentPosition);
 								setMazeData(array3d[currentPosition.getZ()]);	
 							}
