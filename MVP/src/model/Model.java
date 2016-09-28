@@ -79,12 +79,38 @@ public interface Model {
 	
 	/**
 	 * Exit the application.
+	 */
+	public void saveProperties();
+	
+	/**
+	 * Load properties.
+	 */
+	public void loadProperties();
+	
+	/**
+	 * Edits the properties.
+	 *
+	 * @param generationType the generation type
+	 * @param solutionAlgorithm the solution algorithm
+	 * @param maxThreads the max threads
+	 * @param viewStyle the view style
+	 */
+	public void editProperties(String generationType, String solutionAlgorithm, Integer maxThreads, String viewStyle);
+	
+	/**
+	 * Exit.
 	 *
 	 * @param args the args
 	 */
-	public void saveProperties();
-	public void loadProperties();
-	public void editProperties(String generationType, String solutionAlgorithm, Integer maxThreads, String viewStyle);
 	void exit(String[] args);
+	
+	/**
+	 * Gets the cross section.
+	 *
+	 * @param name the name
+	 * @param axis the axis
+	 * @param floor the floor
+	 * @return the cross section
+	 */
 	public int[][] getCrossSection(String name, String axis, Integer floor);
 }

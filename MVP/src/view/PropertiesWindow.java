@@ -10,18 +10,37 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * The Class PropertiesWindow.
+ */
 public class PropertiesWindow extends BasicWindow {
 
+	/** The generate maze. */
 	String generateMaze;
+	
+	/** The solution algorithm. */
 	String solutionAlgorithm;
+	
+	/** The view style. */
 	String viewStyle;
+	
+	/** The max threads. */
 	Integer maxThreads;
 	
+	/**
+	 * Instantiates a new properties window.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 */
 	public PropertiesWindow(int width,int height) {
 		super(width,height);
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see view.BasicWindow#initWidgets()
+	 */
 	@Override
 	public void initWidgets() {
 		shell.setText("Properties");
@@ -57,8 +76,8 @@ public class PropertiesWindow extends BasicWindow {
 				
 		Button btnGenerateMaze = new Button(shell, SWT.PUSH);
 		shell.setDefaultButton(btnGenerateMaze);
-		btnGenerateMaze.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1));
-		btnGenerateMaze.setText("Edit");
+		btnGenerateMaze.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 2, 1));
+		btnGenerateMaze.setText("Save");
 				
 		btnGenerateMaze.addSelectionListener(new SelectionListener() {
 			
@@ -80,21 +99,41 @@ public class PropertiesWindow extends BasicWindow {
 	}
 
 
+	/**
+	 * Gets the generate maze.
+	 *
+	 * @return the generate maze
+	 */
 	public String getGenerateMaze() {
 		return generateMaze;
 	}
 
 
+	/**
+	 * Gets the solution algorithm.
+	 *
+	 * @return the solution algorithm
+	 */
 	public String getSolutionAlgorithm() {
 		return solutionAlgorithm;
 	}
 
 
+	/**
+	 * Gets the view style.
+	 *
+	 * @return the view style
+	 */
 	public String getViewStyle() {
 		return viewStyle;
 	}
 
 
+	/**
+	 * Gets the max threads.
+	 *
+	 * @return the max threads
+	 */
 	public Integer getMaxThreads() {
 		return maxThreads;
 	}

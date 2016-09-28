@@ -7,13 +7,29 @@ import java.util.Observer;
 import model.Model;
 import view.View;
 
+/**
+ * The Class Presenter.
+ */
 public class Presenter implements Observer {
 	
+	/** The model. */
 	private Model model;
+	
+	/** The view. */
 	private View view;
+	
+	/** The commands manager. */
 	private CommandsManager commandsManager;
+	
+	/** The commands. */
 	private HashMap<String, Command> commands;
 
+	/**
+	 * Instantiates a new presenter.
+	 *
+	 * @param model the model
+	 * @param view the view
+	 */
 	public Presenter(Model model, View view) {
 		this.model = model;
 		this.view = view;
@@ -23,6 +39,9 @@ public class Presenter implements Observer {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o == view) {

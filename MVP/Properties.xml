@@ -2,6 +2,6 @@
 <properties>
     <generationType>Growing</generationType>
     <maxThreads>10</maxThreads>
-    <solvingAlgorithm>DFS</solvingAlgorithm>
-    <viewStyle>Y</viewStyle>
+    <solvingAlgorithm>BFS</solvingAlgorithm>
+    <viewStyle>xz</viewStyle>
 </properties>

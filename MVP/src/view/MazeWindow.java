@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -24,33 +25,78 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import presenter.Controller;
 
+/**
+ * The Class MazeWindow.
+ */
 public class MazeWindow extends BasicWindow {
 	
+	/** The maze name. */
 	String mazeName;
+	
+	/** The maze display. */
 	Maze2dDisplay mazeDisplay;
+	
+	/** The maze. */
 	Maze3d maze;
+	
+	/** The generate maze button. */
 	Button generateMazeButton;
+	
+	/** The solve maze button. */
 	Button solveMazeButton;
+	
+	/** The get hint button. */
 	Button getHintButton;
+	
+	/** The reset game button. */
 	Button resetGameButton;
+	
+	/** The menu bar. */
 	Menu menuBar;
+	
+	/** The file menu. */
 	Menu fileMenu;
+	
+	/** The help menu. */
 	Menu helpMenu;
+	
+	/** The cascade file menu. */
 	MenuItem cascadeFileMenu;
+	
+	/** The cascade help menu. */
 	MenuItem cascadeHelpMenu;
+	
+	/** The new game menu item. */
 	MenuItem newGameMenuItem;
+	
+	/** The load maze menu item. */
 	MenuItem loadMazeMenuItem;
+	
+	/** The save maze menu item. */
 	MenuItem saveMazeMenuItem;
+	
+	/** The properties menu item. */
 	MenuItem propertiesMenuItem;
-	MenuItem importPropertiesMenuItem;
-	MenuItem exportPropertiesMenuItem;
+	
+	/** The about menu item. */
 	MenuItem aboutMenuItem;
+	
+	/** The exit menu item. */
 	MenuItem exitMenuItem;
 	
+	/**
+	 * Instantiates a new maze window.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 */
 	public MazeWindow(int width, int height) {
 		super(width,height);
 	}
 
+	/* (non-Javadoc)
+	 * @see view.BasicWindow#initWidgets()
+	 */
 	@Override
 	public void initWidgets() {
 		initMenu();
@@ -80,6 +126,9 @@ public class MazeWindow extends BasicWindow {
 		
 	}
 
+	/**
+	 * Inits the menu.
+	 */
 	private void initMenu() {
 		menuBar = new Menu(shell,SWT.BAR);
 		cascadeFileMenu = new MenuItem(menuBar, SWT.CASCADE);
@@ -100,12 +149,6 @@ public class MazeWindow extends BasicWindow {
 		propertiesMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 		propertiesMenuItem.setText("Properties...");
 		
-		importPropertiesMenuItem = new MenuItem(fileMenu, SWT.PUSH);
-		importPropertiesMenuItem.setText("Import Properties");
-		
-		exportPropertiesMenuItem = new MenuItem(fileMenu, SWT.PUSH);
-		exportPropertiesMenuItem.setText("Export Properties");
-		
 		exitMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 		exitMenuItem.setText("Exit");
 		
@@ -121,71 +164,163 @@ public class MazeWindow extends BasicWindow {
 		shell.setMenuBar(menuBar);
 	}
 	
+	/**
+	 * Generate key listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void generateKeyListener(KeyAdapter listener) {
 		mazeDisplay.addKeyListener(listener);
 	}
 	
+	/**
+	 * Generate maze selection listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void generateMazeSelectionListener(SelectionListener listener) {
 		generateMazeButton.addSelectionListener(listener);
 		newGameMenuItem.addSelectionListener(listener);
 		mazeDisplay.setMaze(maze);
 	}
 	
+	/**
+	 * Solve selection listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void solveSelectionListener(SelectionListener listener) {
 		solveMazeButton.addSelectionListener(listener);
 	}
 	
+	/**
+	 * Gets the hint selection listener.
+	 *
+	 * @param listener the listener
+	 * @return the hint selection listener
+	 */
 	public void getHintSelectionListener(SelectionListener listener) {
 		getHintButton.addSelectionListener(listener);
 	}
 	
+	/**
+	 * Reset game selection listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void resetGameSelectionListener(SelectionListener listener) {
 		resetGameButton.addSelectionListener(listener);
 	}
 	
+	/**
+	 * Load maze selection listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void loadMazeSelectionListener(SelectionListener listener) {
 		loadMazeMenuItem.addSelectionListener(listener);
 	}
 	
+	/**
+	 * Save maze selection listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void saveMazeSelectionListener(SelectionListener listener) {
 		saveMazeMenuItem.addSelectionListener(listener);
 	}
 	
+	/**
+	 * Properties selection listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void propertiesSelectionListener(SelectionListener listener) {
 		propertiesMenuItem.addSelectionListener(listener);
 	}
 	
-	public void importPropertiesSelectionListener(SelectionListener listener) {
-		importPropertiesMenuItem.addSelectionListener(listener);
-	}
-	
-	public void exportPropertiesSelectionListener(SelectionListener listener) {
-		exportPropertiesMenuItem.addSelectionListener(listener);
-	}
-	
+	/**
+	 * About selection listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void aboutSelectionListener(SelectionListener listener) {
 		aboutMenuItem.addSelectionListener(listener);
 	}
 	
+	/**
+	 * Exit selection listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void exitSelectionListener(SelectionListener listener) {
 		exitMenuItem.addSelectionListener(listener);
 	}
 	
+	/**
+	 * Zoom in out screen listener.
+	 *
+	 * @param listener the listener
+	 */
+	public void zoomInOutScreenListener(MouseWheelListener listener){
+		shell.addMouseWheelListener(listener);
+	}
+	
+	/**
+	 * Exit.
+	 */
 	public void exit() {
 		shell.dispose();
 	}
 	
+	/**
+	 * Redraw.
+	 */
 	public void redraw() {
 		shell.redraw();
 	}
 	
+	/**
+	 * Sets the maze.
+	 *
+	 * @param maze the new maze
+	 */
 	public void setMaze(Maze3d maze) {
 		mazeDisplay.setMaze(maze);
 		mazeDisplay.redraw();
 	}
 
+	/**
+	 * Gets the maze display.
+	 *
+	 * @return the maze display
+	 */
 	public Maze2dDisplay getMazeDisplay() {
 		return mazeDisplay;
+	}
+	
+	/**
+	 * Gets the maze.
+	 *
+	 * @return the maze
+	 */
+	public Maze3d getMaze() {
+		return mazeDisplay.getMaze();
+	}
+	
+	/**
+	 * Function that performs zoom in/out with ctrl + mouse wheel.
+	 *
+	 * @param scroll - Positive for zoom in , Negative for zoom out
+	 */
+	public void performZoom(int scroll) {
+		int length = shell.getSize().x;
+		int width = shell.getSize().y;
+
+		if(scroll < 0)
+			shell.setSize((int)(length*0.99), (int)(width*0.99));
+		else
+			shell.setSize((int)(length*1.01), (int)(width*1.01));
 	}
 	
 

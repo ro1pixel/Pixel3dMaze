@@ -55,6 +55,16 @@ public class Position implements Serializable{
 	}
 	
 	/**
+	 * copy CTOR  
+	 * @param pos Position to copy
+	 */
+	public Position(Position pos) {
+		this.x=pos.getX(); 
+		this.y=pos.getY(); 
+		this.z=pos.getZ();  
+	}
+	
+	/**
 	 * Sets the position.
 	 *
 	 * @param z the z

@@ -68,6 +68,7 @@ public class MyModel extends Observable implements Model {
 	/** The solutions Map. */
 	HashMap<String, Solution<Position>> solutions;
 	
+	/** The maze solution. */
 	HashMap<Maze3d, Solution<Position>> mazeSolution;
 	
 	/** The exec service. */
@@ -75,9 +76,17 @@ public class MyModel extends Observable implements Model {
 	
 	/** The controller. */
 	Controller controller;
+	
+	/** The generation type. */
 	String generationType;
+	
+	/** The solving algorithm. */
 	String solvingAlgorithm;
+	
+	/** The max threads. */
 	int maxThreads;
+	
+	/** The view style. */
 	String viewStyle;
 
 	/**
@@ -357,6 +366,9 @@ public class MyModel extends Observable implements Model {
 		System.exit(1);
 	}
 	
+	/**
+	 * Save cache.
+	 */
 	private void saveCache() {
 		ObjectOutputStream oos = null;
 		
@@ -380,6 +392,9 @@ public class MyModel extends Observable implements Model {
 	}
 
 	
+	/**
+	 * Load cache.
+	 */
 	@SuppressWarnings("unchecked")
 	private void loadCache() {
 		File file = new File("Solutions.zip");
@@ -412,6 +427,9 @@ public class MyModel extends Observable implements Model {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.Model#loadProperties()
+	 */
 	public void loadProperties() {
 			Properties properties = new Properties();
 			FileInputStream xml;
@@ -430,6 +448,9 @@ public class MyModel extends Observable implements Model {
 			}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#saveProperties()
+	 */
 	@Override
 	public void saveProperties() {
 		
@@ -447,6 +468,9 @@ public class MyModel extends Observable implements Model {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see model.Model#editProperties(java.lang.String, java.lang.String, java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public void editProperties(String generationType, String solutionAlgorithm, Integer maxThreads, String viewStyle) {
 		if (generationType!=null && solutionAlgorithm!=null && maxThreads!=null && viewStyle!=null )
@@ -473,7 +497,12 @@ public class MyModel extends Observable implements Model {
 	
 	/**
 	 * get Cross Section
-	 * axle index maze name
+	 * axle index maze name.
+	 *
+	 * @param name the name
+	 * @param axis the axis
+	 * @param floor the floor
+	 * @return the cross section
 	 */
 	public int[][] getCrossSection(String name, String axis, Integer floor){
 		if (axis!=null && floor!=null && name!=null){

@@ -29,7 +29,6 @@ public class CLI extends Observable{
 	 *
 	 * @param in the in
 	 * @param out the out
-	 * @param stringToCommand the string to command
 	 */
 	public CLI(BufferedReader in, PrintWriter out) {
 		this.in = in;

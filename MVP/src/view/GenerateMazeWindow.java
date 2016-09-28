@@ -12,17 +12,39 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * The Class GenerateMazeWindow.
+ */
 public class GenerateMazeWindow extends BasicWindow {
 
+	/** The name. */
 	String name;
+	
+	/** The floors. */
 	int floors;
+	
+	/** The height. */
 	int height;
+	
+	/** The width. */
 	int width;
 	
+	/**
+	 * Instantiates a new generate maze window.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 */
 	public GenerateMazeWindow(int width,int height) {
 		super(width, height);
+		height = 0;
+		width = 0;
+		floors = 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see view.BasicWindow#initWidgets()
+	 */
 	@Override
 	public void initWidgets() {
 		shell.setText("Generate Maze");
@@ -61,12 +83,32 @@ public class GenerateMazeWindow extends BasicWindow {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+//				
+//				if(txtHeight.getText() == "") {
+//					displayErrorMessage("Error", "Minimum Height is 10"); 
+//				}
+//				else if(txtWidth.getText() == "")
+//					displayErrorMessage("Error", "Minimum Height is 10"); 
+//				else if(txtFloorsNum.getText() == "")
+//					displayErrorMessage("Error", "Minimum Height is 10"); 
+				
 				name=txtMazeName.getText();
 				floors=Integer.parseInt(txtFloorsNum.getText());
 				height=Integer.parseInt(txtHeight.getText());
 				width=Integer.parseInt(txtWidth.getText());
+				
+				if(name == "") 
+					displayErrorMessage("Error", "Please insert name"); 
+				else if(height < 10)
+					displayErrorMessage("Error", "Minimum Height is 10"); 
+				else if (width < 10)
+					displayErrorMessage("Error", "Minimum Width is 10");
+				else if (floors < 3)
+					displayErrorMessage("Error", "Minimum floors is 3");
+				else {
 				displayInfoMessage("Your Maze", "Maze Name: " + name + "\nFloors: "+floors +"\nHeight: " + height + "\nWidth: " + width);
 				shell.dispose();
+				}
 			}
 			
 			@Override
@@ -75,18 +117,38 @@ public class GenerateMazeWindow extends BasicWindow {
 		
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Gets the floors.
+	 *
+	 * @return the floors
+	 */
 	public int getFloors() {
 		return floors;
 	}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth() {
 		return width;
 	}

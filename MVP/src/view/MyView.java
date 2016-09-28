@@ -20,8 +20,10 @@ import presenter.Controller;
  */
 public class MyView extends Observable implements View, Observer {
 	
+	/** The in. */
 	private BufferedReader in;
 	
+	/** The out. */
 	private PrintWriter out;
 	
 	/** The cli. */
@@ -40,6 +42,12 @@ public class MyView extends Observable implements View, Observer {
 		this.cli = cli;
 	}
 	
+	/**
+	 * Instantiates a new my view.
+	 *
+	 * @param in the in
+	 * @param out the out
+	 */
 	public MyView(BufferedReader in, PrintWriter out) {
 		this.in = in;
 		this.out = out;
@@ -158,6 +166,9 @@ public class MyView extends Observable implements View, Observer {
 		cli.printToScreen(str);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o == cli) {
@@ -166,6 +177,9 @@ public class MyView extends Observable implements View, Observer {
 		}	
 	}
 
+	/* (non-Javadoc)
+	 * @see view.View#displayCrossSection(int[][])
+	 */
 	@Override
 	public void displayCrossSection(int[][] maze2d) {
 		// TODO Auto-generated method stub

@@ -48,9 +48,15 @@ public interface View {
 	/**
 	 * Display solution.
 	 *
-	 * @param solution the solution
+	 * @param maze2d the maze 2 d
 	 */
 	void displayCrossSection(int[][] maze2d);
+	
+	/**
+	 * Display solution.
+	 *
+	 * @param solution the solution
+	 */
 	void displaySolution(Solution<Position> solution);
 	
 	/**
