@@ -85,7 +85,7 @@ public interface Model {
 	/**
 	 * Load properties.
 	 */
-	public void loadProperties();
+	public void loadProperties(String fileName);
 	
 	/**
 	 * Edits the properties.

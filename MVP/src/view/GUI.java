@@ -172,6 +172,23 @@ public class GUI extends Observable implements View, Observer {
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});
 		
+		mazeWindow.importPropertiesSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				String fileName = mazeWindow.displayFileDialog(SWT.SAVE, "Save properties", new String[] { "*.xml" }, "C:\\");
+				if(fileName != null) {
+					setChanged();
+					notifyObservers("load_properties "+fileName);
+					mazeWindow.displayInfoMessage("Load Properties", "The properties was loaded succesfully");
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+			}
+		});
+		
 		mazeWindow.aboutSelectionListener(new SelectionListener() {
 			
 			@Override

@@ -84,6 +84,8 @@ public class MazeWindow extends BasicWindow {
 	/** The exit menu item. */
 	MenuItem exitMenuItem;
 	
+	MenuItem importPropertiesMenuItem;
+	
 	/**
 	 * Instantiates a new maze window.
 	 *
@@ -149,6 +151,9 @@ public class MazeWindow extends BasicWindow {
 		propertiesMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 		propertiesMenuItem.setText("Properties...");
 		
+		importPropertiesMenuItem = new MenuItem(fileMenu, SWT.PUSH);
+		importPropertiesMenuItem.setText("Import Properties...");
+		
 		exitMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 		exitMenuItem.setText("Exit");
 		
@@ -210,6 +215,10 @@ public class MazeWindow extends BasicWindow {
 	 */
 	public void resetGameSelectionListener(SelectionListener listener) {
 		resetGameButton.addSelectionListener(listener);
+	}
+	
+	public void importPropertiesSelectionListener(SelectionListener listener) {
+		importPropertiesMenuItem.addSelectionListener(listener);
 	}
 	
 	/**

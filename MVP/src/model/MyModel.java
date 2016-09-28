@@ -97,7 +97,7 @@ public class MyModel extends Observable implements Model {
 		solutions = new HashMap<>();
 		this.execService = Executors.newFixedThreadPool(20);
 		this.mazeSolution = new HashMap<>();
-		loadProperties();		
+		loadProperties("./Properties.xml");		
 		loadCache();
 	}
 	
@@ -112,7 +112,7 @@ public class MyModel extends Observable implements Model {
 		solutions = new HashMap<>();
 		this.execService = Executors.newFixedThreadPool(20);
 		this.mazeSolution = new HashMap<>();
-		loadProperties();
+		loadProperties("./Properties.xml");
 	}
 
 	/* (non-Javadoc)
@@ -430,12 +430,12 @@ public class MyModel extends Observable implements Model {
 	/* (non-Javadoc)
 	 * @see model.Model#loadProperties()
 	 */
-	public void loadProperties() {
+	public void loadProperties(String fileName) {
 			Properties properties = new Properties();
 			FileInputStream xml;
 			
 			try {
-				xml = new FileInputStream("Properties.xml");
+				xml = new FileInputStream(fileName);
 				properties = JAXB.unmarshal(xml, Properties.class);
 				this.generationType = properties.getGenerationType();
 				this.solvingAlgorithm = properties.getSolvingAlgorithm();

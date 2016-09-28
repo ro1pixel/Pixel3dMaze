@@ -191,7 +191,7 @@ public class CommandsManager {
 		
 		@Override
 		public void doCommand(String[] args) {
-			model.loadProperties();
+			model.loadProperties(args[0]);
 		}
 	}
 	
