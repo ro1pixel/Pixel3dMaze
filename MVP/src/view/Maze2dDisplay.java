@@ -236,6 +236,9 @@ public class Maze2dDisplay extends MazeDisplay {
 	 */
 	@Override
 	public void moveStart() {
+		winner = false;
+		//setMazeData(array3d[start.getZ()]);
+		characterImage = new Image(getDisplay(), "./resources/character.jpg");
 		move(start);
 	}
 
@@ -294,7 +297,7 @@ public class Maze2dDisplay extends MazeDisplay {
 			
 			@Override
 			public void run() {
-				while(true) {
+				while(!winner) {
 					try {Thread.sleep(500); } catch (Exception e) {}
 					Display.getDefault().asyncExec(new Runnable() {
 						
@@ -305,9 +308,6 @@ public class Maze2dDisplay extends MazeDisplay {
 								move(currentPosition);
 								setMazeData(array3d[currentPosition.getZ()]);	
 							}
-//							for(int i=0;i<solution.getPath().size();i++) {
-//								move(solution.getPath().get(i).getValue());								
-//							}							
 						}
 					});
 				}
