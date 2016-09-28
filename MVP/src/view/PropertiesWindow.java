@@ -91,6 +91,7 @@ public class PropertiesWindow extends BasicWindow {
 				viewStyle=viewStyleCombo.getText();
 				displayInfoMessage("Info","The Properties are:"+"\nGenerateType: "+generateMaze+"\nSolution Algorithm: "+solutionAlgorithm
 						+"\nNumber of Threads: "+maxThreads + "\nView Style: " + viewStyle);
+				displayInfoMessage("Restart", "Please restart application!");
 				shell.dispose();
 			}
 			
