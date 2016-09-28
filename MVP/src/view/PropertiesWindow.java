@@ -71,8 +71,10 @@ public class PropertiesWindow extends BasicWindow {
 		Label lblViewStyle = new Label(shell, SWT.NONE);
 		lblViewStyle.setText("View Style: ");
 		
-		Text txtViewStyle = new Text(shell, SWT.BORDER);
-		txtViewStyle.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		final Combo viewStyleCombo = new Combo(shell,SWT.READ_ONLY);
+		viewStyleCombo.setBounds(50, 50, 150, 65);
+		String viewStyleComboItems[] = {"CLI", "GUI"};
+		viewStyleCombo.setItems(viewStyleComboItems);
 				
 		Button btnGenerateMaze = new Button(shell, SWT.PUSH);
 		shell.setDefaultButton(btnGenerateMaze);
@@ -86,7 +88,7 @@ public class PropertiesWindow extends BasicWindow {
 				generateMaze=generationTypeCombo.getText();
 				solutionAlgorithm=solAlgCombo.getText();
 				maxThreads = Integer.parseInt(txtNumThreads.getText());
-				viewStyle=txtViewStyle.getText();
+				viewStyle=viewStyleCombo.getText();
 				displayInfoMessage("Info","The Properties are:"+"\nGenerateType: "+generateMaze+"\nSolution Algorithm: "+solutionAlgorithm
 						+"\nNumber of Threads: "+maxThreads + "\nView Style: " + viewStyle);
 				shell.dispose();

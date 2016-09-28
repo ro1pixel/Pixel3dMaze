@@ -3,5 +3,5 @@
     <generationType>Growing</generationType>
     <maxThreads>10</maxThreads>
     <solvingAlgorithm>BFS</solvingAlgorithm>
-    <viewStyle>xz</viewStyle>
+    <viewStyle>GUI</viewStyle>
 </properties>
