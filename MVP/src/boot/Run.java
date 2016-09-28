@@ -1,16 +1,24 @@
 package boot;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+import model.Model;
 import model.MyModel;
+import presenter.MyController;
 import presenter.Presenter;
+import view.CLI;
 import view.GUI;
 import view.MazeWindow;
+import view.MyView;
+import view.View;
 
 public class Run {
 
 	public static void main(String[] args) {
 		
-//		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-//		PrintWriter out = new PrintWriter(System.out);
+
 //		
 //		MyView view = new MyView(in,out);
 //		MyModel model = new MyModel();
@@ -25,14 +33,27 @@ public class Run {
 //		MazeWindow mw = new MazeWindow(500, 500);
 //		mw.run();
 		
-		GUI gv = new GUI();
+		
 		MyModel model = new MyModel();
+		String viewStyle = model.getViewStyle();
 		
-		Presenter presenter = new Presenter(model, gv);
-		model.addObserver(presenter);
-		gv.addObserver(presenter);
-		
-		gv.start();
+		if(viewStyle.equals("CLI")) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			PrintWriter out = new PrintWriter(System.out);
+			MyView view = new MyView(in,out);
+			Presenter presenter = new Presenter(model, view);
+			view.addObserver(presenter);
+			model.addObserver(presenter);
+			view.start();
+		}
+		else if (viewStyle.equals("GUI")) {
+			GUI gui = new GUI();
+			Presenter presenter = new Presenter(model, gui);
+			gui.addObserver(presenter);
+			model.addObserver(presenter);
+			gui.start();
+		}
+
 	}
 
 }

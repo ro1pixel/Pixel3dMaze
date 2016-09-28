@@ -70,6 +70,10 @@ public class MyView extends Observable implements View, Observer {
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}
+	
+	public void setCommands(HashMap<String, Command> commands) {
+		cli.setCommands(commands);	
+	}
 
 	/* (non-Javadoc)
 	 * @see view.View#notifyMazeIsReady(java.lang.String)

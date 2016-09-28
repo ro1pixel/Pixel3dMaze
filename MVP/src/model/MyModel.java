@@ -440,6 +440,7 @@ public class MyModel extends Observable implements Model {
 				this.generationType = properties.getGenerationType();
 				this.solvingAlgorithm = properties.getSolvingAlgorithm();
 				this.maxThreads = properties.getMaxThreads();
+				this.viewStyle = properties.getViewStyle();
 				System.out.println("Properties loaded successfully!");
 			} catch (Exception e) {
 				setChanged();
@@ -532,4 +533,13 @@ public class MyModel extends Observable implements Model {
 		}
 		
 	}
+
+	public String getViewStyle() {
+		return viewStyle;
+	}
+
+	public void setViewStyle(String viewStyle) {
+		this.viewStyle = viewStyle;
+	}
+	
 }

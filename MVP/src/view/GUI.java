@@ -1,6 +1,7 @@
 package view;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -18,6 +19,7 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import algorithms.search.State;
 import model.MyModel;
+import presenter.Command;
 import presenter.Controller;
 
 /**
@@ -415,6 +417,12 @@ public class GUI extends Observable implements View, Observer {
 	 */
 	public Maze3d getMaze() {
 		return maze;
+	}
+
+	@Override
+	public void setCommands(HashMap<String, Command> commands) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

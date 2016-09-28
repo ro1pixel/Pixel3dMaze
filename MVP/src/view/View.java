@@ -86,5 +86,7 @@ public interface View {
 	 * @param string the string
 	 */
 	void printToScreen(String string);
+	void setCommands(HashMap<String, Command> commands); 
+
 	
 }

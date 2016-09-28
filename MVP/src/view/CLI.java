@@ -23,6 +23,9 @@ public class CLI extends Observable{
 	/** The out. */
 	PrintWriter out;
 	
+	/** The commands. */
+	HashMap<String, Command> commands;
+	
 	
 	/**
 	 * Instantiates a new cli.
@@ -73,6 +76,10 @@ public class CLI extends Observable{
 	public void printToScreen(String str) {
 		out.println(str);
 		out.flush();
+	}
+	
+	public void setCommands(HashMap<String, Command> commands) {
+		this.commands = commands;
 	}
 	
 }
