@@ -142,6 +142,7 @@ public class Maze2dDisplay extends MazeDisplay {
 
 				@Override
 				public void run() {
+					characterImage = new Image(getDisplay(), "./resources/character.jpg");
 					redraw();
 				}
 			});
@@ -237,7 +238,6 @@ public class Maze2dDisplay extends MazeDisplay {
 	@Override
 	public void moveStart() {
 		winner = false;
-		//setMazeData(array3d[start.getZ()]);
 		characterImage = new Image(getDisplay(), "./resources/character.jpg");
 		move(start);
 	}
