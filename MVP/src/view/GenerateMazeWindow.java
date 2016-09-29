@@ -103,7 +103,7 @@ public class GenerateMazeWindow extends BasicWindow {
 					displayErrorMessage("Error", "Minimum Height is 10"); 
 				else if (width < 10)
 					displayErrorMessage("Error", "Minimum Width is 10");
-				else if (floors < 3)
+				else if (floors < 1)
 					displayErrorMessage("Error", "Minimum floors is 3");
 				else {
 				displayInfoMessage("Your Maze", "Maze Name: " + name + "\nFloors: "+floors +"\nHeight: " + height + "\nWidth: " + width);

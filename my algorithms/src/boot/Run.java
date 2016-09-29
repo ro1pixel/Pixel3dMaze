@@ -21,7 +21,7 @@ public class Run {
 		//System.out.println("Algorithm Runtime: " +mg.measureAlgorithmTime(4,12,24));
 		
 		// generate another 3d maze
-		Maze3d maze=mg.generate(4,9,9);
+		Maze3d maze=mg.generate(1,9,9);
 		
 		//print maze
 //		int array[][][] = maze.getArray3d();

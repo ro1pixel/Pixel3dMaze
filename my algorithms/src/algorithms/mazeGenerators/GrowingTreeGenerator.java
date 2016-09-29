@@ -30,9 +30,16 @@ public class GrowingTreeGenerator extends GeneralMaze3dGenerator {
 		cells = new LinkedList<>();
 		
 		initializeMaze(maze3d);
+		boolean oneFloor = false;
 		
+		int zAxis;
 		//choose random Position and set to 0
-		int zAxis = random.nextInt((floors/2))+1;
+		if(floors > 3) {
+			zAxis = random.nextInt((floors/2))+1;
+		} else {
+			zAxis = 1;
+			oneFloor = true;
+		}
 		int xAxis = random.nextInt((width/2)-3)*2+1;
 		int yAxis = random.nextInt((height/2)-3)*2+1;
 		
@@ -65,7 +72,11 @@ public class GrowingTreeGenerator extends GeneralMaze3dGenerator {
             
             if(!cell.allVisited()) {
             	while(true) {
-            		int r = random.nextInt(6);
+            		int r;
+            		if(!oneFloor)
+            			r = random.nextInt(6);
+            		else
+            			r = random.nextInt(4);
 		        	if(r==0 && (!cell.isUpVisited())) {
 		        		cell.setUpVisited(true);
 		            	array3d[zAxis][yAxis-1][xAxis] = 0;
@@ -116,14 +127,17 @@ public class GrowingTreeGenerator extends GeneralMaze3dGenerator {
         
         //Randomize goalPosition
         while(true) {
-    		zAxis = random.nextInt(floors-2)+1;
+        	if(oneFloor)
+        		zAxis = 1;
+        	else
+        		zAxis = random.nextInt(floors-2)+1;
     		xAxis = random.nextInt(width);
     		yAxis = random.nextInt(height);
     		
     		if(array3d[zAxis][yAxis][xAxis] == 0 
     				&& (xAxis!=maze3d.getStartPosition().getX() 
     				&& yAxis!=maze3d.getStartPosition().getY())
-    				&& zAxis!=maze3d.getStartPosition().getZ()) {
+    				) {
     			maze3d.setGoalPosition(zAxis,yAxis,xAxis);
     			break;
     		}
