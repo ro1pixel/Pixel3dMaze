@@ -112,9 +112,14 @@ public class GUI extends Observable implements View, Observer {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				boolean response = mazeWindow.displayQuestion("Reset Game", "Reset Game?");
-				if (response)
-					mazeWindow.getMazeDisplay().moveStart();
+				if (mazeWindow.getMaze() != null) {
+					boolean response = mazeWindow.displayQuestion("Reset Game", "Reset Game?");
+					if (response)
+						mazeWindow.getMazeDisplay().moveStart();
+				}
+				else {
+					mazeWindow.displayErrorMessage("Error", "No maze loaded!");
+				}
 			}
 
 			@Override
