@@ -221,7 +221,6 @@ public class GUI extends Observable implements View, Observer {
 					setChanged();
 					notifyObservers("exit");
 				}
-				mazeWindow.exit();
 			}
 
 			@Override

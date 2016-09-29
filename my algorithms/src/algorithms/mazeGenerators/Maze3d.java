@@ -343,5 +343,37 @@ public Position getStartPosition() {
 			return true;
 		return false;
 	}
+
+	public void setStartPosition(Position startPosition) {
+		this.startPosition = startPosition;
+	}
+
+	public void setGoalPosition(Position goalPosition) {
+		this.goalPosition = goalPosition;
+	}
+	
+	public void setWall(Position p) {
+		array3d[p.getZ()][p.getY()][p.getX()] = 1;
+	}
+	
+	public void setPath(Position p) {
+		array3d[p.getZ()][p.getY()][p.getX()] = 0;
+	}
+	
+	/**
+	 * Initialize maze.
+	 * Sets the whole maze to walls.
+	 * 
+	 * @param maze3d the maze3d
+	 */
+	public void initializeMazeWithPathsOnly() {
+		for(int i=0;i<array3d.length;i++) {
+			for(int j=0; j<array3d[i].length;j++) {
+				for(int k=0;k<array3d[i][j].length;k++) {
+					array3d[i][j][k] = 0;
+				}
+			}
+		}
+	}
 	
 }
